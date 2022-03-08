@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/08 16:17:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/08 18:20:02 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,23 @@ int	get_line_count(fd)
 			count++;
 	}
 	free(buf);
-	return (count);
+	return (count - 1);
 }
 
-char	***get_map(int fd)
+char	***get_map(int fd, int map_height)
 {
 	char	***map;
 	char	*ret;
+	int		i;
 
-	if (fd > 0)
-		ret = get_next_line(fd); 
-	while (ret)
+	i = 0;
+	map = malloc((map_height + 1) * sizeof(char **));
+	map[map_height] = '\0';
+	while (i < map_height)
 	{
-		ret = get_next_line(fd);
+		map[i] = ft_split(get_next_line(fd), ' ');
+		i++;
 	}
-	
 	return (map);
 }
 
@@ -87,13 +89,16 @@ int	main(int argc, char **argv)
 	// void	*mlx_win;
 	// t_data	img;
 	//int	n;
+	char	***map;
 	int		fd;
 	char *ret;
 	fd = open("map.fdf", O_RDONLY);
 	printf("nombre de lignes = %d", get_line_count(fd));
 	close(fd);
 	fd = open("map.fdf", O_RDONLY);
-	printf("ligne %s", get_next_line(fd));
+	map = get_map(fd, 10);
+	ft_print_double_char_tab(map);
+	printf("result %s", map[0][4]);
 //	get_next_line(fd);
 //	ret = get_next_line(fd);
 	//free(ret);
