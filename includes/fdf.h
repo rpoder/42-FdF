@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/05 18:29:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:24:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FDF_H
 
 # include  <mlx.h>
-# include  <mlx_int.h>
+//# include  <mlx_int.h>
+//# include  <mlx_new_window.h>
 
 # include "libft.h"
 # include "get_next_line.h"

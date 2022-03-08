@@ -6,18 +6,18 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/03/05 19:31:35 by rpoder           ###   ########.fr        #
+#    Updated: 2022/03/08 17:28:34 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = exec
-CC = cc
+CC = gcc
 #CFLAGS = -Werror -Wall -Wextra
 LIBFT = libft.a
 LIBFT_DIR = ./libftprintf
-MLX = -lmlx_Linux -lXext -lX11 -lm -lz
-MLX_DIR = ./mlx_linux/
-INC = -I ./mlx_linux -I ./includes -I ./libftprintf/includes
+MLX_DIR = ./mlx_macos
+MLX = -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+INC = -I $(MLX_DIR)/includes -I ./includes -I $(LIBFT_DIR)/includes
 SRCSPATH = ./src/
 
 SRCS = $(addprefix $(SRCSPATH), \
