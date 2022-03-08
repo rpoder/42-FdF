@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/05 17:45:48 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:51:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,29 @@ int	**ft_get_map(int fd, int size)
 {
 	char	*line;
 	int		**map;
+	int		*tmp;
 
 	line = get_next_line(fd);
 	if (!line)
 	{
 		map = malloc(size * sizeof(int *));
 		printf("je malloc batard\n");
+		//printf("add map = %p\n", map);
 		printf("size malloc = %d\n", size);
 		if (!map)
 			exit(1);
 	}
 	else
+	{
+		printf("add map = %p\n", map);
+		//printf("size = %d\n", size);
+		//tmp[size] = map;
 		map = ft_get_map(fd, size + 1);
-	printf("size = %d\n", size);
+	}
+	
+	//printf("add map = %p\n", map);
 	map[size] = get_int_tab((char *)line);
+	free(line);
 	return (map);
 }
 
@@ -101,12 +110,21 @@ int	main(int argc, char **argv)
 	//int	n;
 	int 	**map;
 	int		fd;
+	char *ret;
 
 	fd = open("map.fdf", O_RDONLY);
+//	get_next_line(fd);
+//	ret = get_next_line(fd);
+	//free(ret);
+	// free(ret);
+	// ret = get_next_line(fd);
+	// free(ret);
+	//ret = get_next_line(fd);
 
 	map = ft_get_map(fd, 0);
 	ft_print_doubleinttab(map, 10, 10);
-	printf("\n");
+	free(map);
+	//printf("\n");
 	//printf("%d", map[0][0]);
 
 	// mlx = mlx_init();

@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/03/05 17:47:57 by rpoder           ###   ########.fr        #
+#    Updated: 2022/03/05 19:31:35 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ test: $(NAME)
 	$(NAME) && ./$(NAME)
 
 leaks: $(NAME)
-	$(NAME) && ./$(NAME) && valgrind ./$(NAME) --leak-check=full
+	$(NAME) && ./$(NAME) && valgrind ./$(NAME) --leak-check=full --show-leak-kinds=all
 
 %.a:
 	$(MAKE) -C $(LIBFT_DIR)

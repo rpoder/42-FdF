@@ -6,12 +6,14 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:50:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/02/24 17:43:59 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:26:41 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# define BUFFER_SIZE 1
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -20,8 +22,6 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
-
-# define BUFFER_SIZE 8
 
 char	*get_next_line(int fd);
 char	*ft_trim_rest(char *to_trim);
