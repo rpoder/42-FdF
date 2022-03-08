@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/06 18:51:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/08 16:17:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-char	**ft_handle_free(char **tab, int i)
+char	**ft_free_double_char(char **tab, int i)
 {
 	while (i >= 0)
 	{
@@ -47,58 +47,37 @@ int	ft_strlen_split(char **tab)
 	return (count);
 }
 
-int	*get_int_tab(char *str)
+int	get_line_count(fd)
 {
-	int		*tab;
-	char	**tmp;
-	int		i;
+	int		count;
+	int		ret;
+	char 	*buf;
 
-	i = 0;
-	if (!str)
-		return (NULL);
-	tmp = ft_split(str, ' ');
-	if (!tmp)
-		return (0);
-	tab = malloc(ft_strlen_split(tmp) * sizeof(int));
-	if (!tab)
-		return (0);	
-	while (tmp[i])
+	count = 0;
+	ret = 1;
+	buf = malloc(sizeof(char));
+	while (ret != 0)
 	{
-		if (tmp[i][0] != '\n')
-			tab[i] = ft_atoi(tmp[i]);
-		i++;
+		ret = read(fd, buf, 1);
+		if (buf[0] == '\n')
+			count++;
 	}
-	ft_handle_free(tmp, ft_strlen_split(tmp) + 1);
-	return (tab);
+	free(buf);
+	return (count);
 }
 
-int	**ft_get_map(int fd, int size)
+char	***get_map(int fd)
 {
-	char	*line;
-	int		**map;
-	int		*tmp;
+	char	***map;
+	char	*ret;
 
-	line = get_next_line(fd);
-	if (!line)
+	if (fd > 0)
+		ret = get_next_line(fd); 
+	while (ret)
 	{
-		map = malloc(size * sizeof(int *));
-		printf("je malloc batard\n");
-		//printf("add map = %p\n", map);
-		printf("size malloc = %d\n", size);
-		if (!map)
-			exit(1);
-	}
-	else
-	{
-		printf("add map = %p\n", map);
-		//printf("size = %d\n", size);
-		//tmp[size] = map;
-		map = ft_get_map(fd, size + 1);
+		ret = get_next_line(fd);
 	}
 	
-	//printf("add map = %p\n", map);
-	map[size] = get_int_tab((char *)line);
-	free(line);
 	return (map);
 }
 
@@ -108,11 +87,13 @@ int	main(int argc, char **argv)
 	// void	*mlx_win;
 	// t_data	img;
 	//int	n;
-	int 	**map;
 	int		fd;
 	char *ret;
-
 	fd = open("map.fdf", O_RDONLY);
+	printf("nombre de lignes = %d", get_line_count(fd));
+	close(fd);
+	fd = open("map.fdf", O_RDONLY);
+	printf("ligne %s", get_next_line(fd));
 //	get_next_line(fd);
 //	ret = get_next_line(fd);
 	//free(ret);
@@ -121,9 +102,6 @@ int	main(int argc, char **argv)
 	// free(ret);
 	//ret = get_next_line(fd);
 
-	map = ft_get_map(fd, 0);
-	ft_print_doubleinttab(map, 10, 10);
-	free(map);
 	//printf("\n");
 	//printf("%d", map[0][0]);
 
