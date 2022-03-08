@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/08 17:24:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/03/08 21:12:09 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,11 @@ typedef struct s_data {
 }t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+void	ft_print_inttab(int *tab, int size);
+void	ft_print_doubleinttab(int **tab, int h_size, int w_size);
+void ft_print_char_tab(char **tab);
+void	ft_print_double_char_tab(char ***tab);
+char	**ft_free_double_char(char **tab, int i);
 
 #endif
