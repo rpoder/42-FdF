@@ -11,13 +11,13 @@
 # **************************************************************************** #
 
 NAME = exec
-CC = gcc
+CC = cc
 #CFLAGS = -Werror -Wall -Wextra
 LIBFT = libft.a
 LIBFT_DIR = ./libftprintf
 MLX_DIR = ./mlx_macos
-MLX = -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-INC = -I $(MLX_DIR)/includes -I ./includes -I $(LIBFT_DIR)/includes
+MLX = -framework OpenGL -framework AppKit
+INC = -I$(MLX_DIR) -I ./includes -I $(LIBFT_DIR)/includes
 SRCSPATH = ./src/
 
 SRCS = $(addprefix $(SRCSPATH), \
@@ -30,7 +30,7 @@ SRCS = $(addprefix $(SRCSPATH), \
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
-	$(CC) $< $(INC) $(CFLAGS) -c -o $@
+	$(CC) $< $(INC) $(CFLAGS) -c -o $@ 
 
 all: $(NAME)
 
@@ -42,9 +42,10 @@ leaks: $(NAME)
 
 %.a:
 	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(MLX_DIR)
 
 $(NAME): $(OBJS) $(addprefix $(LIBFTDIR),$(LIBFT))
-	$(CC) $(OBJS) $(CFLAGS) -lft -L$(LIBFT_DIR) $(MLX) -L$(MLX_DIR) $(INC) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) -lft -L$(LIBFT_DIR) -lmlx -L$(MLX_DIR) $(MLX) $(INC) -o $(NAME)
 
 push:
 	git add *

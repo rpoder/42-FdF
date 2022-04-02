@@ -14,6 +14,8 @@
 # define FDF_H
 
 # include  <mlx.h>
+# include <math.h>
+//# include <X11/X.h>
 //# include  <mlx_int.h>
 //# include  <mlx_new_window.h>
 
@@ -27,6 +29,13 @@ typedef struct s_data {
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct win_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_win_data;
+
 
 typedef struct int_tab {
 	int	x_max;
