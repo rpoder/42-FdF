@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/03/09 18:27:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/03 18:50:28 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,48 +150,7 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 	return (s_tab);
 }
 
-void	draw_line(t_data img, int xStart, int yStart, int xEnd, int yEnd)
-{
-	int	dx;
-	int	dy;
-	int	pk;
-	int	x;
-	int	y;
-	int	count;
-	int	tmp;
 
-
-	x = xStart;
-	y = yStart;
-	count = 0;
-	printf("dx = %d\n", dx);
-
-	tmp = xEnd;
-	xEnd = xStart;
-	xStart = tmp;
-	dx = xEnd - xStart;
-	dy = yEnd - yStart;
-	pk = 2 * dy - dx;
-	while(count < dx)
-	{
-		printf("x = %d, y = %d\n", x, y);
-		if(pk >= 0)
-		{
-			printf("in if ");
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			y = y + 1;
-			pk = pk + 2 * dy - 2 * dx;
-		}
-		else
-		{
-			printf("in else ");
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			pk = pk + 2 * dy;
-		}
-	x = x + 1;
-	count ++;
-	}
-}
 
 void	print_tab_to_window(t_data img, t_int_tab *map)
 {
@@ -258,7 +217,9 @@ void	draw_tab(t_data	img, t_int_tab *map)
 	x_end = ((i) * zoom + (j + 1) * zoom) + offset;
 	y_end = ((i) * zoom - (j + 1) * zoom)/2 + offset;
 	printf("start: (%d, %d)\nend: (%d, %d)\n", x_start, y_start, x_end, y_end);
-	draw_line(img, x_start, y_start, x_end, y_end);
+	//drawline(img, x_start, y_start, x_end, y_end);
+
+
 	// while (i < map->y_max)
 	// {
 	// 	j = 0;
@@ -280,7 +241,9 @@ int	main(int argc, char **argv)
 	t_data		img;
 	t_win_data	win_data;
 	t_int_tab	*s_tab;
-	
+	t_point		*start;
+	t_point		*stop;
+
 	s_tab = init_s_tab();
 	//int	n;
 //	char	***map;
@@ -309,21 +272,24 @@ int	main(int argc, char **argv)
 	}
 	//hooks
 	mlx_loop_hook(win_data.mlx_ptr, &handle_no_event, &win_data);
-	mlx_key_hook(win_data.win_ptr, &handle_input, &win_data);	
-	
-	
+	mlx_key_hook(win_data.win_ptr, &handle_input, &win_data);
+
 	img.img = mlx_new_image(win_data.mlx_ptr, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
 	//draw_tab(img, s_tab);
-	draw_line(img, 300, 300, 350, 260);
+	start->x = 300;
+	start->y = 200;
+	stop->x = 301;
+	stop->y = 260;
 
-	print_tab_to_window(img, s_tab);
+	ft_drawline(img, start, stop);
+
+	//print_tab_to_window(img, s_tab);
 	//draw_tab(img, s_tab);
-	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);	
+	//my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(win_data.mlx_ptr, win_data.win_ptr, img.img, 0, 0);
-	
-	mlx_loop(win_data.mlx_ptr);
 
+	mlx_loop(win_data.mlx_ptr);
 
 }
