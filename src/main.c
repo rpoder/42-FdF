@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/03 18:50:28 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/05 16:22:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ int	main(int argc, char **argv)
 	//draw_tab(img, s_tab);
 	start->x = 300;
 	start->y = 200;
-	stop->x = 301;
+	stop->x = 310;
 	stop->y = 260;
 
 	ft_drawline(img, start, stop);

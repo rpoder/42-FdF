@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:26 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/03 19:23:33 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/05 16:24:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_bresenham_x(t_data img, t_point *start, t_point *end)
+void	ft_bresenham_1o(t_data img, t_point *start, t_point *end)
 {
 	int	dx;
 	int	dy;
@@ -24,29 +24,21 @@ void	ft_bresenham_x(t_data img, t_point *start, t_point *end)
 	y = start->y;
 	dx = end->x - start->x;
 	dy = end->y - start->y;
-	printf("Start (%d, %d) || ", start->x, start->y);
-	printf("Stop (%d, %d)\n", end->x, end->y);
-	pk = 2 * dy - dx;
-	while(x <= end->x)
+	pk = -dx;
+	while (x <= end->x)
 	{
-		printf("x = %d, y = %d\n", x, y);
-
-		if(pk >= 0)
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		pk = pk + 2 * dy;
+		if (pk >= 0)
 		{
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			y = y + 1;
-			pk = pk + 2 * dy - 2 * dx;
+			y++;
+			pk = pk - 2 * dx;
 		}
-		else
-		{
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			pk = pk + 2 * dy;
-		}
-	x = x + 1;
+	x++;
 	}
 }
 
-void	ft_bresenham_y(t_data img, t_point *start, t_point *end)
+void	ft_bresenham_2o(t_data img, t_point *start, t_point *end)
 {
 	int	dx;
 	int	dy;
@@ -58,27 +50,69 @@ void	ft_bresenham_y(t_data img, t_point *start, t_point *end)
 	y = start->y;
 	dx = end->x - start->x;
 	dy = end->y - start->y;
-	printf("Start (%d, %d) || ", start->x, start->y);
-	printf("Stop (%d, %d)\n", end->x, end->y);
-	pk = 2 * dy - dx;
+	pk = -dy;
 	while(y <= end->y)
 	{
-		printf("x = %d, y = %d\n", x, y);
-		printf("pk = %d\n", pk);
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		pk = pk + 2 * dx;
 		if(pk >= 0)
 		{
-			printf("if\n");
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			y = y + 1;
-			pk = pk + 2 * dy - 2 * dx;
+			x++;
+			pk = pk - 2 * dy;
 		}
-		else
+	y++;
+	}
+}
+
+void	ft_bresenham_3o(t_data img, t_point *start, t_point *end)
+{
+	int	dx;
+	int	dy;
+	int	pk;
+	int	x;
+	int	y;
+
+	x = start->x;
+	y = start->y;
+	dx = end->x - start->x;
+	dy = end->y - start->y;
+	pk = -dy;
+	while(y < end->y)
+	{
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		pk = pk - 2 * dx;
+		if(pk >= 0)
 		{
-			printf("else\n");
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			pk = pk + 2 * dy;
+			x--;
+			pk = pk - 2 * dy;
 		}
-	x = x + 1;
+	y++;
+	}
+}
+
+void	ft_bresenham_4o(t_data img, t_point *start, t_point *end)
+{
+	int	dx;
+	int	dy;
+	int	pk;
+	int	x;
+	int	y;
+
+	x = start->x;
+	y = start->y;
+	dx = end->x - start->x;
+	dy = end->y - start->y;
+	pk = dx;
+	while(x <= end->x)
+	{
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		pk = pk + 2 * dy;
+		if(pk >= 0)
+		{
+			y++;
+			pk = pk + 2 * dx;
+		}
+	x--;
 	}
 }
 
@@ -90,8 +124,25 @@ void	ft_drawline(t_data img, t_point *start, t_point *end)
 	dx = end->x - start->x;
 	dy = end->y - start->y;
 	printf("dx = %d || dy = %d", dx, dy);
-	if (dx >= dy)
-		ft_bresenham_x(img, start, end);
-	if (dx < dy)
-		ft_bresenham_y(img, start, end);
+	if (dx >= 0 && dy >= 0)
+	{
+		if (dx >= dy)
+			ft_bresenham_1o(img, start, end);
+		else
+			ft_bresenham_2o(img, start, end);
+	}
+	else if (dx <= 0 && dy >= 0)
+	{
+		if (dx < -dy)
+			ft_bresenham_3o(img, start, end);
+		else
+			ft_bresenham_4o(img, start, end);
+	}
+	else if (dx <= 0 && dy <= 0)
+	{
+		if (dx <= dy)
+			ft_bresenham_5o(img, start, end);
+		else
+			ft_bresenham_6o(img, start, end);
+	}
 }
