@@ -25,7 +25,8 @@ SRCS = $(addprefix $(SRCSPATH), \
 	get_next_line.c \
 	get_next_line_utils.c \
 	print_functions.c \
-	ft_bresenham.c \
+	ft_bresenham_1demi.c \
+	ft_bresenham_2demi.c \
 	ft_bresenham_parser.c \
 	)
 
