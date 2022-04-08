@@ -202,38 +202,52 @@ void	draw_tab(t_data	img, t_int_tab *map)
 	int	j;
 	int	zoom;
 	int	offset;
-	int	x_start;
-	int	y_start;
-	int	x_end;
-	int	y_end;
+	t_point *start;
+	t_point *stop;
 
 	i = 0;
-	zoom = 20;
+	zoom = 40;
 	offset = 300;
 	i = 0;
 	j = 0;
-	x_start = (i * zoom + j * zoom) + offset;
-	y_start = (i * zoom - j * zoom)/2 + offset;
-	x_end = ((i) * zoom + (j + 1) * zoom) + offset;
-	y_end = ((i) * zoom - (j + 1) * zoom)/2 + offset;
-	printf("start: (%d, %d)\nend: (%d, %d)\n", x_start, y_start, x_end, y_end);
+	start = malloc(sizeof(t_point));
+	stop = malloc(sizeof(t_point));
+	// x_start = (i * zoom + j * zoom) + offset;
+	// y_start = (i * zoom - j * zoom)/2 + offset;
+	// x_end = ((i) * zoom + (j + 1) * zoom) + offset;
+	// y_end = ((i) * zoom - (j + 1) * zoom)/2 + offset;
+	// printf("start: (%d, %d)\nend: (%d, %d)\n", x_start, y_start, x_end, y_end);
 	//drawline(img, x_start, y_start, x_end, y_end);
 
 
-	// while (i < map->y_max)
-	// {
-	// 	j = 0;
-	// 	while (j < map->x_max)
-	// 	{
-	// 		x_start = i * (zoom / 2) + j * (zoom / 2) + offset;
-	// 		y_start = i * (zoom / 2) - j * (zoom / 2) + offset;
-	// 		x_end = (i + 1) * (zoom / 2) + (j + 1)  * (zoom / 2) + offset;
-	// 		y_end = (i + 1) * (zoom / 2) - (j + 1) * (zoom / 2) + offset;
-	// 		draw_line(img, x_start, y_start, x_end, y_end);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
+	while (i < map->y_max)
+	{
+		j = 0;
+		while (j < map->x_max)
+		{
+			if (j + 1 < map->x_max)
+			{
+				start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
+				start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
+				stop->x = (i) * (zoom / 2) + (j + 1)  * (zoom / 2) + offset;
+				stop->y = (i) * (zoom / 2) - (j + 1) * (zoom / 2) + offset;
+				ft_drawline(img, start, stop);
+			}
+			if (i + 1 < map->y_max)
+			{
+				start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
+				start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
+				stop->x = (i + 1) * (zoom / 2) + (j)  * (zoom / 2) + offset;
+				stop->y = (i + 1) * (zoom / 2) - (j) * (zoom / 2) + offset;
+				ft_drawline(img, start, stop);
+			}
+
+			j++;
+		}
+		i++;
+	}
+	free(start);
+	free(stop);
 }
 
 int	main(int argc, char **argv)
@@ -245,12 +259,7 @@ int	main(int argc, char **argv)
 	t_point		*stop;
 
 	s_tab = init_s_tab();
-	//int	n;
-//	char	***map;
-//	int		fd;
-//	char *ret;
-//	fd = open("map.fdf", O_RDONLY);
-//	ft_printf("nombre de lignes = %d", get_line_count(fd));
+
 
 //	map = get_map(fd, 10);
 	//ft_print_double_char_tab(map);
@@ -277,17 +286,17 @@ int	main(int argc, char **argv)
 	img.img = mlx_new_image(win_data.mlx_ptr, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-	//draw_tab(img, s_tab);
-	start->x = 300;
-	start->y = 200;
-	stop->x = 310;
-	stop->y = 260;
+	draw_tab(img, s_tab);
+	
+	// start = malloc(sizeof(t_point));
+	// stop = malloc(sizeof(t_point));
+	// start->x = 300;
+	// start->y = 400;
+	// stop->x = 310;
+	// stop->y = 260;
 
-	ft_drawline(img, start, stop);
+	//ft_drawline(img, start, stop);
 
-	//print_tab_to_window(img, s_tab);
-	//draw_tab(img, s_tab);
-	//my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(win_data.mlx_ptr, win_data.win_ptr, img.img, 0, 0);
 
 	mlx_loop(win_data.mlx_ptr);

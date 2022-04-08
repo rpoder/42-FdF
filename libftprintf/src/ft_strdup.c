@@ -15,10 +15,8 @@
 char	*ft_strdup(const char *s)
 {
 	int		s_len;
-	int		i;
 	char	*ptr;
 
-	i = 0;
 	s_len = ft_strlen(s);
 	ptr = (char *)ft_calloc(s_len + 1, sizeof(char));
 	if (ptr == 0)

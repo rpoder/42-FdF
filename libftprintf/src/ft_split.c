@@ -90,11 +90,9 @@ static char	**ft_assign(char **tab, const char *str, char c, int nb_words)
 
 char	**ft_split(char const *str, char charset)
 {
-	int		i;
 	int		nb_words;
 	char	**tab;
 
-	i = 0;
 	if (!str)
 		return (NULL);
 	nb_words = ft_count_words(str, charset);
