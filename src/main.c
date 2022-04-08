@@ -233,14 +233,14 @@ void	draw_tab(t_data	img, t_int_tab *map)
 				stop->y = (i) * (zoom / 2) - (j + 1) * (zoom / 2) + offset;
 				ft_drawline(img, start, stop);
 			}
-			if (i + 1 < map->y_max)
-			{
-				start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
-				start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
-				stop->x = (i + 1) * (zoom / 2) + (j)  * (zoom / 2) + offset;
-				stop->y = (i + 1) * (zoom / 2) - (j) * (zoom / 2) + offset;
-				ft_drawline(img, start, stop);
-			}
+			// if (i + 1 < map->y_max)
+			// {
+			// 	start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
+			// 	start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
+			// 	stop->x = (i + 1) * (zoom / 2) + (j)  * (zoom / 2) + offset;
+			// 	stop->y = (i + 1) * (zoom / 2) - (j) * (zoom / 2) + offset;
+			// 	ft_drawline(img, start, stop);
+			// }
 
 			j++;
 		}
