@@ -26,6 +26,7 @@ SRCS = $(addprefix $(SRCSPATH), \
 	get_next_line_utils.c \
 	print_functions.c \
 	ft_bresenham.c \
+	ft_bresenham_parser.c \
 	)
 
 OBJS = $(SRCS:.c=.o)
@@ -36,7 +37,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 test: $(NAME)
-	$(NAME) && ./$(NAME) map.fdf
+	$(NAME) && ./$(NAME) test_maps/10-2.fdf
 
 leaks: $(NAME)
 	$(NAME) && ./$(NAME) && valgrind ./$(NAME) --leak-check=full --show-leak-kinds=all

@@ -56,8 +56,22 @@ void	ft_print_char_tab(char **tab);
 void	ft_print_double_char_tab(char ***tab);
 char	**ft_free_double_char(char **tab, int i);
 
-//void	ft_bresenham(t_data img, t_point *start, t_point *end);
 void	ft_drawline(t_data img, t_point *start, t_point *end);
+
+// Bresenham
+//Parser
+void ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
+void ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
+
+void	ft_bresenham_1o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_2o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_3o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_4o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_5o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_6o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_7o(t_data img, t_point *start, t_point *end);
+void	ft_bresenham_8o(t_data img, t_point *start, t_point *end);
+
 
 
 #endif

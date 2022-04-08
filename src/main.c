@@ -42,7 +42,6 @@ int	ft_strlen_split(char **tab)
 		{
 			count++;
 		}
-		//count--;
 	}
 	return (count);
 }
@@ -150,36 +149,6 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 	return (s_tab);
 }
 
-
-
-void	print_tab_to_window(t_data img, t_int_tab *map)
-{
-	int	i;
-	int	j;
-	int	zoom;
-	int	offset;
-	int	x;
-	int	y;
-
-	i = 0;
-	zoom = 20;
-	offset = 300;
-	while (i < map->y_max)
-	{
-		j = 0;
-		while (j < map->x_max)
-		{
-		//	printf("i = %d | j = %d\n", i, j);
-			x = (i * zoom + j * zoom) + offset;
-			y = (i * zoom - j * zoom) / 2 + offset;
-			//printf("A(%d, %d)\n", x, y);
-			my_mlx_pixel_put(&img, x, y, 0x00FFFFFF);
-			j++;
-		}
-		i++;
-	}
-}
-
 int	handle_no_event(void *data)
 {
 		return (0);
@@ -192,7 +161,6 @@ int	handle_input(int keysym, t_win_data *win_data)
 		mlx_destroy_window(win_data->mlx_ptr, win_data->win_ptr);
 		exit(0);
 	}
-	//ft_printf("Keypress: %d\n", keysym);
 	return (0);
 }
 
@@ -204,21 +172,19 @@ void	draw_tab(t_data	img, t_int_tab *map)
 	int	offset;
 	t_point *start;
 	t_point *stop;
+	float	a;
+	int s;
+	int height;
 
-	i = 0;
-	zoom = 40;
+	zoom = 30;
 	offset = 300;
 	i = 0;
 	j = 0;
 	start = malloc(sizeof(t_point));
 	stop = malloc(sizeof(t_point));
-	// x_start = (i * zoom + j * zoom) + offset;
-	// y_start = (i * zoom - j * zoom)/2 + offset;
-	// x_end = ((i) * zoom + (j + 1) * zoom) + offset;
-	// y_end = ((i) * zoom - (j + 1) * zoom)/2 + offset;
-	// printf("start: (%d, %d)\nend: (%d, %d)\n", x_start, y_start, x_end, y_end);
-	//drawline(img, x_start, y_start, x_end, y_end);
-
+	a = 26.565;
+	s = zoom;
+	height = 3;
 
 	while (i < map->y_max)
 	{
@@ -227,21 +193,20 @@ void	draw_tab(t_data	img, t_int_tab *map)
 		{
 			if (j + 1 < map->x_max)
 			{
-				start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
-				start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
-				stop->x = (i) * (zoom / 2) + (j + 1)  * (zoom / 2) + offset;
-				stop->y = (i) * (zoom / 2) - (j + 1) * (zoom / 2) + offset;
+				start->y = (i * cos(a) * s  - j * cos(a) * s) + offset + map->tab[i][j] * height;
+				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
+				stop->y = (i * cos(a) * s  - (j + 1) * cos(a) * s) + offset + map->tab[i][j + 1] * height;
+				stop->x = (i * sin(a) * s + (j + 1) * sin(a) * s - 1 * s) + offset;
 				ft_drawline(img, start, stop);
 			}
-			// if (i + 1 < map->y_max)
-			// {
-			// 	start->x = i * (zoom / 2) + j * (zoom / 2) + offset;
-			// 	start->y = i * (zoom / 2) - j * (zoom / 2) + offset;
-			// 	stop->x = (i + 1) * (zoom / 2) + (j)  * (zoom / 2) + offset;
-			// 	stop->y = (i + 1) * (zoom / 2) - (j) * (zoom / 2) + offset;
-			// 	ft_drawline(img, start, stop);
-			// }
-
+			if (i + 1 < map->y_max)
+			{
+				start->y = (i * cos(a) * s  - j * cos(a) * s) + offset + map->tab[i][j] * height;
+				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
+				stop->y = ((i + 1) * cos(a) * s  - j * cos(a) * s) + offset  + map->tab[i + 1][j] * height;
+				stop->x = ((i + 1) * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
+				ft_drawline(img, start, stop);
+			}
 			j++;
 		}
 		i++;
@@ -255,19 +220,9 @@ int	main(int argc, char **argv)
 	t_data		img;
 	t_win_data	win_data;
 	t_int_tab	*s_tab;
-	t_point		*start;
-	t_point		*stop;
 
 	s_tab = init_s_tab();
 
-
-//	map = get_map(fd, 10);
-	//ft_print_double_char_tab(map);
-	//ft_printf("result %s", map[0][4]);
-
-
-
-	// ft_print_doubleinttab(s_tab->tab, s_tab->y_max, s_tab->x_max);
 	get_int_map(argv[1], s_tab);
 
 	win_data.mlx_ptr = mlx_init();
@@ -287,15 +242,6 @@ int	main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
 	draw_tab(img, s_tab);
-	
-	// start = malloc(sizeof(t_point));
-	// stop = malloc(sizeof(t_point));
-	// start->x = 300;
-	// start->y = 400;
-	// stop->x = 310;
-	// stop->y = 260;
-
-	//ft_drawline(img, start, stop);
 
 	mlx_put_image_to_window(win_data.mlx_ptr, win_data.win_ptr, img.img, 0, 0);
 
