@@ -38,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 test: $(NAME)
-	$(NAME) && ./$(NAME) test_maps/10-2.fdf
+	$(NAME) && ./$(NAME) test_maps/42.fdf
 
 leaks: $(NAME)
 	$(NAME) && ./$(NAME) && valgrind ./$(NAME) --leak-check=full --show-leak-kinds=all

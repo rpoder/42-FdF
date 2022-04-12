@@ -97,7 +97,8 @@ char	***get_map(int fd, int map_height)
 	while (i < map_height)
 	{
 		map[i] = ft_split(get_next_line(fd), ' ');
-		//verifier split
+		if (!map[i])
+			return (NULL);
 		i++;
 	}
 	return (map);
@@ -151,11 +152,15 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 
 int	handle_no_event(void *data)
 {
-		return (0);
+	return (0);
 }
 
 int	handle_input(int keysym, t_win_data *win_data)
 {
+	if (keysym == 126)
+		win_data->height++;
+	if (keysym == 125)
+		win_data->height--;
 	if (keysym == 53)
 	{
 		mlx_destroy_window(win_data->mlx_ptr, win_data->win_ptr);
@@ -164,12 +169,11 @@ int	handle_input(int keysym, t_win_data *win_data)
 	return (0);
 }
 
-void	draw_tab(t_data	img, t_int_tab *map)
+void	render_tab(t_data	img, t_int_tab *map, t_win_data *win_data)
 {
 	int	i;
 	int	j;
 	int	zoom;
-	int	offset;
 	t_point *start;
 	t_point *stop;
 	float	a;
@@ -177,14 +181,13 @@ void	draw_tab(t_data	img, t_int_tab *map)
 	int height;
 
 	zoom = 30;
-	offset = 300;
 	i = 0;
 	j = 0;
 	start = malloc(sizeof(t_point));
 	stop = malloc(sizeof(t_point));
 	a = 26.565;
 	s = zoom;
-	height = 3;
+	height = 10;
 
 	while (i < map->y_max)
 	{
@@ -193,18 +196,18 @@ void	draw_tab(t_data	img, t_int_tab *map)
 		{
 			if (j + 1 < map->x_max)
 			{
-				start->y = (i * cos(a) * s  - j * cos(a) * s) + offset + map->tab[i][j] * height;
-				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
-				stop->y = (i * cos(a) * s  - (j + 1) * cos(a) * s) + offset + map->tab[i][j + 1] * height;
-				stop->x = (i * sin(a) * s + (j + 1) * sin(a) * s - 1 * s) + offset;
+				start->y = (i * cos(a) * s  - j * cos(a) * s) + win_data->y_offset - map->tab[i][j] * height;
+				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + win_data->x_offset;
+				stop->y = (i * cos(a) * s  - (j + 1) * cos(a) * s) + win_data->y_offset - map->tab[i][j + 1] * height;
+				stop->x = (i * sin(a) * s + (j + 1) * sin(a) * s - 1 * s) + win_data->x_offset;
 				ft_drawline(img, start, stop);
 			}
 			if (i + 1 < map->y_max)
 			{
-				start->y = (i * cos(a) * s  - j * cos(a) * s) + offset + map->tab[i][j] * height;
-				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
-				stop->y = ((i + 1) * cos(a) * s  - j * cos(a) * s) + offset  + map->tab[i + 1][j] * height;
-				stop->x = ((i + 1) * sin(a) * s + j * sin(a) * s - 1 * s) + offset;
+				start->y = (i * cos(a) * s  - j * cos(a) * s) + win_data->y_offset - map->tab[i][j] * height;
+				start->x = (i * sin(a) * s + j * sin(a) * s - 1 * s) + win_data->x_offset;
+				stop->y = ((i + 1) * cos(a) * s  - j * cos(a) * s) + win_data->y_offset - map->tab[i + 1][j] * height;
+				stop->x = ((i + 1) * sin(a) * s + j * sin(a) * s - 1 * s) + win_data->x_offset;
 				ft_drawline(img, start, stop);
 			}
 			j++;
@@ -234,6 +237,9 @@ int	main(int argc, char **argv)
 		free(win_data.win_ptr);
 		return (0);
 	}
+	win_data.height = 1;
+	win_data.x_offset = 100;
+	win_data.y_offset = 300;
 	//hooks
 	mlx_loop_hook(win_data.mlx_ptr, &handle_no_event, &win_data);
 	mlx_key_hook(win_data.win_ptr, &handle_input, &win_data);
@@ -241,7 +247,7 @@ int	main(int argc, char **argv)
 	img.img = mlx_new_image(win_data.mlx_ptr, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-	draw_tab(img, s_tab);
+	render_tab(img, s_tab, &win_data);
 
 	mlx_put_image_to_window(win_data.mlx_ptr, win_data.win_ptr, img.img, 0, 0);
 

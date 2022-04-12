@@ -34,10 +34,23 @@ typedef struct win_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		height;
+	int		zoom;
+	int		x_offset;
+	int		y_offset;
 }	t_win_data;
 
+typedef struct screen_data
+{
+	int	height;
+	int	zoom;
+	int	x_offset;
+	int	y_offset;
+}	t_screen_data;
 
-typedef struct int_tab {
+
+typedef struct int_tab
+{
 	int	x_max;
 	int	y_max;
 	int	**tab;
