@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 15:21:08 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:59:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
-
 # define MOVE_UP 119
 # define MOVE_DOWN 115
 # define MOVE_LEFT 97
@@ -64,37 +63,45 @@ typedef struct int_tab
 	int	**tab;
 }	t_int_tab;
 
+typedef struct info_draw {
+	int		i;
+	int		j;
+	float	a;
+}	t_info_draw;
+
 typedef struct point {
 	int	x;
 	int	y;
 }	t_point;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		handle_no_event(void *data);
-int		handle_input(int keysym, t_win_data *win_data);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			handle_no_event(void *data);
+int			handle_input(int keysym, t_win_data *win_data);
 
 t_win_data	*set_win_data(t_int_tab *s_tab);
 t_int_tab	*set_s_tab(void);
 
-int    **ft_free_double_int(int **tab, int i);
-char	**ft_free_double_char(char **tab, int i);
-int 	ft_strlen_split(char **tab);
+int			**ft_free_double_int(int **tab, int i);
+char		**ft_free_double_char(char **tab, int i);
+int 		ft_strlen_split(char **tab);
 
 t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab);
 
-// Bresenham
-void	ft_drawline(t_data img, t_point *start, t_point *end);
+void		draw_v(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win);
+void		draw_h(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win);
 
-void ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
-void ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
+void		ft_drawline(t_data img, t_point *start, t_point *end);
 
-void	ft_bresenham_1o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_2o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_3o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_4o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_5o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_6o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_7o(t_data img, t_point *start, t_point *end);
-void	ft_bresenham_8o(t_data img, t_point *start, t_point *end);
+void 		ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
+void 		ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
+
+void		ft_bresenham_1o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_2o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_3o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_4o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_5o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_6o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_7o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_8o(t_data img, t_point *start, t_point *end);
 
 #endif

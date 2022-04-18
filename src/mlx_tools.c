@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:37:50 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 16:56:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:57:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	if (x <= 0 || x >= WIN_WIDTH || y <= 0 || y >= WIN_HEIGHT)
-		return;
+		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 int	handle_no_event(void *data)
@@ -35,7 +35,6 @@ int	handle_input(int keysym, t_win_data *win_data)
 		mlx_destroy_window(win_data->mlx_ptr, win_data->win_ptr);
 		free(win_data->mlx_ptr);
 		free(win_data->win_ptr);
-		exit(0);
 	}
 	return (0);
 }

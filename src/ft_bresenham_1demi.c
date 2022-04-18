@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bresenham.c                                     :+:      :+:    :+:   */
+/*   ft_bresenham_1demi.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:26 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/05 16:24:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:48:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	ft_bresenham_2o(t_data img, t_point *start, t_point *end)
 	dx = end->x - start->x;
 	dy = end->y - start->y;
 	pk = -dy;
-	while(y < end->y)
+	while (y < end->y)
 	{
 		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
 		pk = pk + 2 * dx;
-		if(pk >= 0)
+		if (pk >= 0)
 		{
 			x++;
 			pk = pk - 2 * dy;
@@ -77,11 +77,11 @@ void	ft_bresenham_3o(t_data img, t_point *start, t_point *end)
 	dx = end->x - start->x;
 	dy = end->y - start->y;
 	pk = -dy;
-	while(y < end->y)
+	while (y < end->y)
 	{
 		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
 		pk = pk - 2 * dx;
-		if(pk >= 0)
+		if (pk >= 0)
 		{
 			x--;
 			pk = pk - 2 * dy;
@@ -103,11 +103,11 @@ void	ft_bresenham_4o(t_data img, t_point *start, t_point *end)
 	dx = end->x - start->x;
 	dy = end->y - start->y;
 	pk = dx;
-	while(x > end->x)
+	while (x > end->x)
 	{
 		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
 		pk = pk + 2 * dy;
-		if(pk >= 0)
+		if (pk >= 0)
 		{
 			y++;
 			pk = pk + 2 * dx;
