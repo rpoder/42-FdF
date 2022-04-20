@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:59:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/20 17:44:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:48:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ char	**ft_free_double_char(char **tab, int i)
 int	ft_strlen_split(char **tab)
 {
 	int	count;
+	int	i;
 
 	count = 0;
+	i = 0;
 	if (tab)
 	{
-		while (tab[count])
+		while (tab[i])
 		{
-			if (tab[count][0] != '\n')
+			if (tab[i][0] != 10)
 				count++;
+			i++;
 		}
 	}
-	//count--;
 	return (count);
 }
