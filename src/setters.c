@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:54:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:54:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:30:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_win_data	*set_win_data(t_int_tab *s_tab)
 	win_data = malloc(sizeof(t_win_data));
 	win_data->mlx_ptr = mlx_init();
 	if (win_data->mlx_ptr == NULL)
-		return (0);
+		return (NULL);
 	win_data->win_ptr = mlx_new_window(win_data->mlx_ptr,
 			1920, 1080, "Hello world!");
 	if (win_data->win_ptr == NULL)
 	{
 		free(win_data->win_ptr);
-		return (0);
+		return (NULL);
 	}
 	win_data->zoom = (WIN_WIDTH / s_tab->x_max) / 3;
 	win_data->height = 1;

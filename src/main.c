@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/20 15:07:35 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:35:05 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,20 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	win = set_win_data(s_tab);
+	if (!win)
+		return (0);
+	ft_printf("ALL GOOOODDDD 1\n");
 	mlx_loop_hook(win->mlx_ptr, &handle_no_event, &win);
 	mlx_key_hook(win->win_ptr, &handle_input, &win);
 	img.img = mlx_new_image(win->mlx_ptr, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
+	ft_printf("ALL GOOOODDDD 2\n");
+
 	render_map(img, s_tab, win);
-	ft_free_double_int(s_tab->tab, s_tab->y_max);
+	ft_printf("ALL GOOOODDDD 3\n");
+
+	//ft_free_double_int(s_tab->tab, s_tab->y_max);
 	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, img.img, 0, 0);
 	mlx_loop(win->mlx_ptr);
 }

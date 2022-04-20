@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:59:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:55:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:35:16 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int	ft_strlen_split(char **tab)
 			count++;
 		}
 	}
+	//count--;
 	return (count);
 }
