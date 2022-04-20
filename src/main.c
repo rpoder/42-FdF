@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:45:30 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:07:35 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,17 @@ int	main(int argc, char **argv)
 	s_tab = set_s_tab();
 	if (!s_tab)
 		return (0);
-	get_int_map(argv[1], s_tab);
-	if (!s_tab->tab)
+	s_tab = get_int_map(argv[1], s_tab);
+	if (!s_tab)
+	{
+		free (s_tab);
 		return (0);
-	win = set_win(s_tab);
+	}
+	win = set_win_data(s_tab);
 	mlx_loop_hook(win->mlx_ptr, &handle_no_event, &win);
 	mlx_key_hook(win->win_ptr, &handle_input, &win);
 	img.img = mlx_new_image(win->mlx_ptr, 1920, 1080);
-	img.addr = mlx_get_addr(img.img, &img.bits_per_pixel,
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	render_map(img, s_tab, win);
 	ft_free_double_int(s_tab->tab, s_tab->y_max);

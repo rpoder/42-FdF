@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/04/18 16:58:42 by rpoder           ###   ########.fr        #
+#    Updated: 2022/04/20 12:40:17 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ test: $(NAME)
 	$(NAME) && ./$(NAME) test_maps/10-2.fdf
 
 leaks: $(NAME)
-	$(NAME) && ./$(NAME) && valgrind ./$(NAME) --leak-check=full --show-leak-kinds=all
+	$(NAME) && ./$(NAME) && valgrind ./$(NAME) test_maps/10-2.fdf --leak-check=full --show-leak-kinds=all
 
 %.a:
 	$(MAKE) -C $(LIBFT_DIR)
@@ -59,6 +59,9 @@ push:
 	git status
 	git commit -m "$m"
 	git push origin master
+
+norminette:
+	norminette ./libftprintf ./src ./includes 
 
 clean:
 	rm -rf $(SRCSPATH)*.o

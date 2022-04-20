@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:52:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:53:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 	int			fd;
 	int			i;
 
+	fd = open(to_open, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
 	s_tab->y_max = get_line_count(to_open);
 	s_tab->tab = malloc(s_tab->y_max * sizeof(int *));
 	if (!s_tab->tab)
-		return (NULL);
-	fd = open(to_open, O_RDONLY);
-	if (fd < 0)
 		return (NULL);
 	i = 0;
 	while (i < s_tab->y_max)
@@ -83,7 +83,7 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 		if (!s_tab->tab[i])
 		{
 			ft_free_double_int(s_tab->tab, i);
-			return (0);
+			return (NULL);
 		}
 		i++;
 	}

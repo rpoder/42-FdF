@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:59:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:07:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include  <mlx.h>
+# include  <mlx_int.h>
 # include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
@@ -55,7 +56,6 @@ typedef struct screen_data
 	int	y_offset;
 }	t_screen_data;
 
-
 typedef struct int_tab
 {
 	int	x_max;
@@ -83,17 +83,19 @@ t_int_tab	*set_s_tab(void);
 
 int			**ft_free_double_int(int **tab, int i);
 char		**ft_free_double_char(char **tab, int i);
-int 		ft_strlen_split(char **tab);
+int			ft_strlen_split(char **tab);
 
 t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab);
 
-void		draw_v(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win);
-void		draw_h(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win);
+void		draw_v(t_data img, t_info_draw *info,
+				t_int_tab *map, t_win_data *win);
+void		draw_h(t_data img, t_info_draw *info,
+				t_int_tab *map, t_win_data *win);
 
 void		ft_drawline(t_data img, t_point *start, t_point *end);
 
-void 		ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
-void 		ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
 
 void		ft_bresenham_1o(t_data img, t_point *start, t_point *end);
 void		ft_bresenham_2o(t_data img, t_point *start, t_point *end);
