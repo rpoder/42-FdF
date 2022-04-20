@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/20 15:29:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:41:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,20 @@ static int	*get_line(int fd, t_int_tab *s_tab)
 {
 	int		*tab;
 	char	**line;
+	char	*res;
 	int		i;
+	int		j;
 
-	line = ft_split(get_next_line(fd), ' ');
+	res = get_next_line(fd);
+	line = ft_split( res, ' ');
 	if (!line)
 		return (NULL);
+	j = 0;
+	while (line[j])
+    {
+       printf("j = %d| str=|%s| ", j, line[j]);
+        j++;
+    }
 	s_tab->x_max = ft_strlen_split(line);
 	tab = malloc(s_tab->x_max * sizeof(int));
 	if (!tab)
@@ -55,15 +64,17 @@ static int	*get_line(int fd, t_int_tab *s_tab)
 		return (NULL);
 	}
 	i = 0;
-	ft_printf("\n\n");
-	ft_printf("x_max = %d, y_max = %d\n", s_tab->x_max, s_tab->y_max);
+	//ft_printf("\n\n");
+	//ft_printf("x_max = %d, y_max = %d\n", s_tab->x_max, s_tab->y_max);
 	while (line[i])
 	{
+		//printf("tab[%d] = %s | ", i, line[i]);
+
 		tab[i] = ft_atoi(line[i]);
-		ft_printf("tab[%d] = %d | ", i, tab[i]);
 		i++;
 	}
-	free (line);
+	free(line);
+	free(res);
 	return (tab);
 }
 
@@ -90,7 +101,7 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 		}
 		i++;
 	}
-	ft_printf("TERMINUCH\n");
+	//ft_printf("TERMINUCH\n");
 	close(fd);
 	return (s_tab);
 }

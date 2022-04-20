@@ -6,13 +6,13 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/04/20 15:35:33 by rpoder           ###   ########.fr        #
+#    Updated: 2022/04/20 17:42:21 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = exec
 CC = cc
-CFLAGS = -Werror -Wall -Wextra
+#CFLAGS = -Werror -Wall -Wextra
 LIBFT = libft.a
 LIBFT_DIR = ./libftprintf
 MLX_DIR = ./mlx_linux
@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 test: $(NAME)
-	$(NAME) && ./$(NAME) test_maps/pentenegpos.fdf
+	$(NAME) && ./$(NAME) test_maps/mars.fdf
 
 leaks: $(NAME)
 	$(NAME) && ./$(NAME) && valgrind ./$(NAME) test_maps/10-2.fdf --leak-check=full --show-leak-kinds=all
