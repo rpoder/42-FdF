@@ -6,38 +6,41 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:54:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 17:06:12 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 20:57:19 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_win_data	*set_win_data(t_int_tab *s_tab)
+t_vars	*set_vars(t_int_tab *s_tab)
 {
-	t_win_data	*win_data;
+	t_vars	*vars;
 
-	win_data = malloc(sizeof(t_win_data));
-	win_data->mlx_ptr = mlx_init();
-	if (win_data->mlx_ptr == NULL)
+	vars = malloc(sizeof(t_vars));
+	if (!vars)
+		return (NULL);
+	vars->mlx_ptr = mlx_init();
+	if (vars->mlx_ptr == NULL)
 	{
-		free(win_data);
+		free(vars);
 		return (NULL);
 	}
-	win_data->win_ptr = mlx_new_window(win_data->mlx_ptr,
-			1920, 1080, "Hello world!");
-	if (win_data->win_ptr == NULL)
+	vars->win_ptr = mlx_new_window(vars->mlx_ptr,
+			1920, 1080, "Fer de fil");
+	if (vars->win_ptr == NULL)
 	{
-		free(win_data->mlx_ptr);
-		free(win_data);
+		free(vars->mlx_ptr);
+		free(vars);
 		return (NULL);
 	}
-	win_data->zoom = (WIN_WIDTH / s_tab->x_max) / 3;
-	win_data->height = 1;
-	win_data->x_offset = ((WIN_WIDTH - (s_tab->x_max * win_data->zoom)) / 2)
-		- (s_tab->x_max * win_data->zoom) / 3;
-	win_data->y_offset = WIN_HEIGHT / 2;
-	printf("win_data %p\nmlx_ptr %p\nwin_ptr %d", win_data, win_data->mlx_ptr, win_data->win_ptr);
-	return (win_data);
+	vars->img_ptr = mlx_new_image(vars->mlx_ptr, 1920, 1080);
+	vars->addr = mlx_get_data_addr(vars->img_ptr, &vars->bits_per_pixel, &vars->line_length, &vars->endian);
+	vars->zoom = (WIN_WIDTH / s_tab->x_max) / 3;
+	vars->height = 1;
+	vars->x_offset = ((WIN_WIDTH - (s_tab->x_max * vars->zoom)) / 2)
+		- (s_tab->x_max * vars->zoom) / 3;
+	vars->y_offset = WIN_HEIGHT / 2;
+	return (vars);
 }
 
 t_int_tab	*set_s_tab(void)

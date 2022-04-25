@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 17:36:35 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 21:10:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	render_map(t_data	img, t_int_tab *map, t_win_data *win_data)
+void	render_map(t_int_tab *map, t_vars *vars)
 {
 	t_info_draw	*infos;
 
@@ -26,9 +26,9 @@ void	render_map(t_data	img, t_int_tab *map, t_win_data *win_data)
 		while (infos->j < map->x_max)
 		{
 			if (infos->j + 1 < map->x_max)
-				draw_v(img, infos, map, win_data);
+				draw_v(infos, map, vars);
 			if (infos->i + 1 < map->y_max)
-				draw_h(img, infos, map, win_data);
+				draw_h(infos, map, vars);
 			infos->j++;
 		}
 		infos->i++;
@@ -36,62 +36,54 @@ void	render_map(t_data	img, t_int_tab *map, t_win_data *win_data)
 	free(infos);
 }
 
-void	draw_v(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win)
+void	draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars)
 {
 	int		i;
 	int		j;
 	float	a;
-	t_point	*start;
-	t_point	*stop;
+	t_point	start;
+	t_point	stop;
 
 	i = info->i;
 	j = info->j;
 	a = info->a;
-	start = malloc(sizeof(t_point));
-	stop = malloc(sizeof(t_point));
-	start->y = (i * cos(a) * win->zoom - j * cos(a)
-			* win->zoom) + win->y_offset - map->tab[i][j] * win->height;
-	start->x = (i * sin(a) * win->zoom + j * sin(a)
-			* win->zoom - 1 * win->zoom) + win->x_offset;
-	stop->y = (i * cos(a) * win->zoom - (j + 1) * cos(a)
-			* win->zoom) + win->y_offset - map->tab[i][j + 1] * win->height;
-	stop->x = (i * sin(a) * win->zoom + (j + 1) * sin(a)
-			* win->zoom - 1 * win->zoom) + win->x_offset;
-	ft_drawline(img, start, stop);
-	free(start);
-	free(stop);
+	start.y = (i * cos(a) * vars->zoom - j * cos(a)
+			* vars->zoom) + vars->y_offset - map->tab[i][j] * vars->height;
+	start.x = (i * sin(a) * vars->zoom + j * sin(a)
+			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
+	stop.y = (i * cos(a) * vars->zoom - (j + 1) * cos(a)
+			* vars->zoom) + vars->y_offset - map->tab[i][j + 1] * vars->height;
+	stop.x = (i * sin(a) * vars->zoom + (j + 1) * sin(a)
+			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
+	ft_drawline(vars, start, stop);
+
 }
 
-void	draw_h(t_data img, t_info_draw *info, t_int_tab *map, t_win_data *win)
+void	draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars)
 {
 	int		i;
 	int		j;
 	float	a;
-	t_point	*start;
-	t_point	*stop;
+	t_point	start;
+	t_point	stop;
 
 	i = info->i;
 	j = info->j;
 	a = info->a;
-	start = malloc(sizeof(t_point));
-	stop = malloc(sizeof(t_point));
-	start->y = (i * cos(a) * win->zoom - j * cos(a)
-			* win->zoom) + win->y_offset - map->tab[i][j] * win->height;
-	start->x = (i * sin(a) * win->zoom + j * sin(a)
-			* win->zoom - 1 * win->zoom) + win->x_offset;
-	stop->y = ((i + 1) * cos(a) * win->zoom - j * cos(a)
-			* win->zoom) + win->y_offset - map->tab[i + 1][j] * win->height;
-	stop->x = ((i + 1) * sin(a) * win->zoom + j * sin(a)
-			* win->zoom - 1 * win->zoom) + win->x_offset;
-	ft_drawline(img, start, stop);
-	free(start);
-	free(stop);
+	start.y = (i * cos(a) * vars->zoom - j * cos(a)
+			* vars->zoom) + vars->y_offset - map->tab[i][j] * vars->height;
+	start.x = (i * sin(a) * vars->zoom + j * sin(a)
+			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
+	stop.y = ((i + 1) * cos(a) * vars->zoom - j * cos(a)
+			* vars->zoom) + vars->y_offset - map->tab[i + 1][j] * vars->height;
+	stop.x = ((i + 1) * sin(a) * vars->zoom + j * sin(a)
+			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
+	ft_drawline(vars, start, stop);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data		img;
-	t_win_data	*win;
+	t_vars	*vars;
 	t_int_tab	*s_tab;
 
 	if (argc != 2)
@@ -105,39 +97,14 @@ int	main(int argc, char **argv)
 		free (s_tab);
 		return (0);
 	}
-	win = set_win_data(s_tab);
-	if (!win)
+	vars = set_vars(s_tab);
+	if (!vars)
 		return (0);
-	mlx_loop_hook(win->mlx_ptr, handle_no_event, win);
-	mlx_key_hook(win->win_ptr, handle_input, win);
-	img.img = mlx_new_image(win->mlx_ptr, 1920, 1080);
-	win->img_ptr = img.img;
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
-	render_map(img, s_tab, win);
+	mlx_loop_hook(vars->win_ptr, handle_no_event, vars);
+	mlx_key_hook(vars->win_ptr, handle_input, vars);
+
+	render_map(s_tab, vars);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);
 	ft_free_double_int(s_tab->tab, s_tab->y_max);
-	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, img.img, 0, 0);
-	mlx_loop(win->mlx_ptr);
+	mlx_loop(vars->mlx_ptr);
 }
-
-
-
-/* int main(void)
-{
-    char    *str;
-    char    **tab;
-    int     i;
-    int     j;
-
-    str = "9 9 9 9 9 9 9 9 9 9 8  9 9 9  9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 10 9 9 9 9 9 9 9 9 9 10 10 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 8 7 10 9 9 9 9 9 9 8 10 9 9 9 9 9 9 8 10 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 ";
-    tab = ft_split(str, ' ');
-
-    i = 0;
-    j = 0;
-    while (tab[i])
-    {
-        printf("str=|%s|\n", tab[i]);
-        i++;
-    }
-
-} */

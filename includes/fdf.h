@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 16:44:58 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 21:12:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,21 @@
 # define PLUS 65451
 # define MINUS 65453
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
 
-typedef struct win_data
+typedef struct vars
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 	int		height;
 	int		zoom;
 	int		x_offset;
 	int		y_offset;
-}	t_win_data;
+}	t_vars;
 
 typedef struct screen_data
 {
@@ -75,11 +72,11 @@ typedef struct point {
 	int	y;
 }	t_point;
 
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int			handle_no_event(void *data);
-int			handle_input(int keysym, t_win_data *win_data);
+int			handle_input(int keysym, t_vars *vars);
 
-t_win_data	*set_win_data(t_int_tab *s_tab);
+t_vars	*set_vars(t_int_tab *s_tab);
 t_int_tab	*set_s_tab(void);
 
 int			**ft_free_double_int(int **tab, int i);
@@ -88,23 +85,21 @@ int			ft_strlen_split(char **tab);
 
 t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab);
 
-void		draw_v(t_data img, t_info_draw *info,
-				t_int_tab *map, t_win_data *win);
-void		draw_h(t_data img, t_info_draw *info,
-				t_int_tab *map, t_win_data *win);
+void		draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars);
+void		draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars);
 
-void		ft_drawline(t_data img, t_point *start, t_point *end);
+void		ft_drawline(t_vars *vars, t_point start, t_point end);
 
-void		ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_parser_1demi(t_vars *vars, t_point start, t_point stop);
+void		ft_bresenham_parser_2demi(t_vars *vars, t_point start, t_point stop);
 
-void		ft_bresenham_1o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_2o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_3o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_4o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_5o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_6o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_7o(t_data img, t_point *start, t_point *end);
-void		ft_bresenham_8o(t_data img, t_point *start, t_point *end);
+void		ft_bresenham_1o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_2o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_3o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_4o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_5o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_6o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_7o(t_vars *vars, t_point start, t_point end);
+void		ft_bresenham_8o(t_vars *vars, t_point start, t_point end);
 
 #endif

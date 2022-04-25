@@ -6,71 +6,71 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:26 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/18 17:57:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 21:12:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_drawline(t_data img, t_point *start, t_point *end)
+void	ft_drawline(t_vars *vars, t_point start, t_point stop)
 {
 	int	dx;
 	int	dy;
 
-	dx = end->x - start->x;
-	dy = end->y - start->y;
+	dx = stop.x - start.x;
+	dy = stop.y - start.y;
 	if (dx >= 0 && dy >= 0)
-		ft_bresenham_parser_1demi(img, start, end);
+		ft_bresenham_parser_1demi(vars, start, stop);
 	else if (dx <= 0 && dy >= 0)
-		ft_bresenham_parser_1demi(img, start, end);
+		ft_bresenham_parser_1demi(vars, start, stop);
 	else if (dx <= 0 && dy <= 0)
-		ft_bresenham_parser_2demi(img, start, end);
+		ft_bresenham_parser_2demi(vars, start, stop);
 	else if (dx >= 0 && dy <= 0)
-		ft_bresenham_parser_2demi(img, start, end);
+		ft_bresenham_parser_2demi(vars, start, stop);
 }
 
-void	ft_bresenham_parser_1demi(t_data img, t_point *start, t_point *end)
+void	ft_bresenham_parser_1demi(t_vars *vars, t_point start, t_point stop)
 {
 	int	dx;
 	int	dy;
 
-	dx = end->x - start->x;
-	dy = end->y - start->y;
+	dx = stop.x - start.x;
+	dy = stop.y - start.y;
 	if (dx >= 0 && dy >= 0)
 	{
 		if (dx >= dy)
-			ft_bresenham_1o(img, start, end);
+			ft_bresenham_1o(vars, start, stop);
 		else
-			ft_bresenham_2o(img, start, end);
+			ft_bresenham_2o(vars, start, stop);
 	}
 	else if (dx <= 0 && dy >= 0)
 	{
 		if (dx < -dy)
-			ft_bresenham_3o(img, start, end);
+			ft_bresenham_3o(vars, start, stop);
 		else
-			ft_bresenham_4o(img, start, end);
+			ft_bresenham_4o(vars, start, stop);
 	}
 }
 
-void	ft_bresenham_parser_2demi(t_data img, t_point *start, t_point *end)
+void	ft_bresenham_parser_2demi(t_vars *vars, t_point start, t_point stop)
 {
 	int	dx;
 	int	dy;
 
-	dx = end->x - start->x;
-	dy = end->y - start->y;
+	dx = stop.x - start.x;
+	dy = stop.y - start.y;
 	if (dx <= 0 && dy <= 0)
 	{
 		if (dx <= dy)
-			ft_bresenham_5o(img, start, end);
+			ft_bresenham_5o(vars, start, stop);
 		else
-			ft_bresenham_6o(img, start, end);
+			ft_bresenham_6o(vars, start, stop);
 	}
 	else if (dx >= 0 && dy <= 0)
 	{
 		if (dx < -dy)
-			ft_bresenham_7o(img, start, end);
+			ft_bresenham_7o(vars, start, stop);
 		else
-			ft_bresenham_8o(img, start, end);
+			ft_bresenham_8o(vars, start, stop);
 	}
 }
