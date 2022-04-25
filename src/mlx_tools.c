@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:37:50 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/22 16:42:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 17:29:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	handle_input(int keysym, t_win_data *win_data)
 	if (keysym == ESC)
 	{
 		mlx_destroy_window(win_data->mlx_ptr, win_data->win_ptr);
-		free(win_data->mlx_ptr);
-		free(win_data->win_ptr);
+		mlx_destroy_image(win_data->mlx_ptr, win_data->img_ptr);
+	//	free(win_data->mlx_ptr);
+		//free(win_data->win_ptr);
+		exit(0);
 	}
-	return (0);
+
 }

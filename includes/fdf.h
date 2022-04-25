@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/22 16:42:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 16:44:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct win_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*img_ptr;
 	int		height;
 	int		zoom;
 	int		x_offset;

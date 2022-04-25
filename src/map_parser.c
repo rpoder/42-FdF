@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/22 17:07:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 16:42:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int	*get_line(int fd, t_int_tab *s_tab)
 	while (line[j])
         j++;
 	s_tab->x_max = ft_strlen_split(line);
-	ft_printf("x_max %d\n", s_tab->x_max);
 	tab = malloc(s_tab->x_max * sizeof(int));
 	if (!tab)
 	{
@@ -67,7 +66,6 @@ static int	*get_line(int fd, t_int_tab *s_tab)
 		tab[i] = ft_atoi(line[i]);
 		i++;
 	}
-	ft_printf("OK\n");
 	free(line);
 	free(res);
 	return (tab);
@@ -82,16 +80,12 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 	if (fd < 0)
 		return (NULL);
 	s_tab->y_max = get_line_count(to_open);
-	ft_printf("y_max %d\n", s_tab->y_max);
-
 	s_tab->tab = malloc(s_tab->y_max * sizeof(int *));
 	if (!s_tab->tab)
 		return (NULL);
 	i = 0;
 	while (i < s_tab->y_max)
 	{
-	ft_printf("i = %d\n", i);
-
 		s_tab->tab[i] = get_line(fd, s_tab);
 		if (!s_tab->tab[i])
 		{
@@ -100,7 +94,6 @@ t_int_tab	*get_int_map(char *to_open, t_int_tab *s_tab)
 		}
 		i++;
 	}
-	//ft_printf("TERMINUCH\n");
 	close(fd);
 	return (s_tab);
 }
