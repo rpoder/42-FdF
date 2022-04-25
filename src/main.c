@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 21:10:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 21:45:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,28 +83,31 @@ void	draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars)
 
 int	main(int argc, char **argv)
 {
-	t_vars	*vars;
+	t_vars		*vars;
 	t_int_tab	*s_tab;
+	int			ret;
 
 	if (argc != 2)
 		return (0);
 	s_tab = set_s_tab();
 	if (!s_tab)
 		return (0);
-	s_tab = get_int_map(argv[1], s_tab);
-	if (!s_tab)
+	ret = get_int_map(argv[1], s_tab);
+	if (ret == 0)
 	{
 		free (s_tab);
 		return (0);
 	}
 	vars = set_vars(s_tab);
 	if (!vars)
+	{
+		ft_free_double_int(s_tab->tab, s_tab->y_max);
 		return (0);
+	}
 	mlx_loop_hook(vars->win_ptr, handle_no_event, vars);
 	mlx_key_hook(vars->win_ptr, handle_input, vars);
-
 	render_map(s_tab, vars);
-	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);
 	ft_free_double_int(s_tab->tab, s_tab->y_max);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);
 	mlx_loop(vars->mlx_ptr);
 }

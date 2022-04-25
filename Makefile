@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/04/25 21:12:35 by rpoder           ###   ########.fr        #
+#    Updated: 2022/04/25 22:04:03 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MLX_DIR = ./mlx_linux
 MLX = -L/usr/lib -Imlx_Linux -lXext -lX11 -lm -lz
 INC = -I$(MLX_DIR) -I ./includes -I $(LIBFT_DIR)/includes -O3 -I/usr/include
 SRCSPATH = ./src/
-MAP = 10-2
+MAP = t1
 
 SRCS = $(addprefix $(SRCSPATH), \
 	main.c \

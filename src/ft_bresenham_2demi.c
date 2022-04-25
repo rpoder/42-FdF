@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:26 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 21:08:46 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/04/25 22:05:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_bresenham_5o(t_vars *vars, t_point start, t_point end)
 	pk = 2 * dx;
 	while (x > end.x)
 	{
-		my_mlx_pixel_put(vars, x, y, 0x00FF0000);
+		my_mlx_pixel_put(vars, x, y, 0x00FFFFFF);
 		pk = pk - 2 * dy;
 		if (pk >= 0)
 		{
@@ -53,7 +53,7 @@ void	ft_bresenham_6o(t_vars *vars, t_point start, t_point end)
 	pk = 2 * dy;
 	while (y > end.y)
 	{
-		my_mlx_pixel_put(vars, x, y, 0x00FF0000);
+		my_mlx_pixel_put(vars, x, y, 0x00FFFFFF);
 		pk = pk - 2 * dx;
 		if (pk >= 0)
 		{
@@ -79,7 +79,7 @@ void	ft_bresenham_7o(t_vars *vars, t_point start, t_point end)
 	pk = 2 * dy;
 	while (y > end.y)
 	{
-		my_mlx_pixel_put(vars, x, y, 0x00FF0000);
+		my_mlx_pixel_put(vars, x, y, 0x00FFFFFF);
 		pk = pk + 2 * dx;
 		if (pk >= 0)
 		{
@@ -105,7 +105,7 @@ void	ft_bresenham_8o(t_vars *vars, t_point start, t_point end)
 	pk = -dx;
 	while (x < end.x)
 	{
-		my_mlx_pixel_put(vars, x, y, 0x00FF0000);
+		my_mlx_pixel_put(vars, x, y, 0x00FFFFFF);
 		pk = pk - 2 * dy;
 		if (pk >= 0)
 		{
