@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:59:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 14:50:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:52:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	ft_strlen_split(char **tab)
 
 char	**trim_split(char **tab)
 {
-	int	i;
-	int	j;
-	int	size;
-	char **new_tab;
+	int		i;
+	int		j;
+	int		size;
+	char	**new_tab;
 
 	size = ft_strlen_split(tab);
 	new_tab = malloc(sizeof(char *) * size);

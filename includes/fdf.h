@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:06:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:53:09 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define MOVE_UP 119
@@ -31,15 +30,14 @@
 # define PLUS 65451
 # define MINUS 65453
 
-
 typedef struct vars
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		line_len;
 	int		endian;
 	int		height;
 	int		zoom;
@@ -84,8 +82,10 @@ void		draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars);
 
 void		ft_drawline(t_vars *vars, t_point start, t_point end);
 
-void		ft_bresenham_parser_1demi(t_vars *vars, t_point start, t_point stop);
-void		ft_bresenham_parser_2demi(t_vars *vars, t_point start, t_point stop);
+void		ft_bresenham_parser_1demi(t_vars *vars,
+				t_point start, t_point stop);
+void		ft_bresenham_parser_2demi(t_vars *vars,
+				t_point start, t_point stop);
 
 void		ft_bresenham_1o(t_vars *vars, t_point start, t_point end);
 void		ft_bresenham_2o(t_vars *vars, t_point start, t_point end);

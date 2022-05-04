@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 14:52:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:14:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars)
 	stop.x = (i * sin(a) * vars->zoom + (j + 1) * sin(a)
 			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
 	ft_drawline(vars, start, stop);
-
 }
 
 void	draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars)
@@ -94,16 +93,14 @@ int	main(int argc, char **argv)
 		return (0);
 	ret = get_int_map(argv[1], s_tab);
 	if (ret == 0)
-	{
 		free (s_tab);
+	if (ret == 0)
 		return (0);
-	}
 	vars = set_vars(s_tab);
 	if (!vars)
-	{
 		ft_free_double_int(s_tab->tab, s_tab->y_max);
+	if (!vars)
 		return (0);
-	}
 	render_map(s_tab, vars);
 	ft_free_double_int(s_tab->tab, s_tab->y_max);
 	free(s_tab);

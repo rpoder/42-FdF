@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:06:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:13:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,16 @@ static int	*get_line(int fd, t_int_tab *s_tab, int k)
 		return (NULL);
 	j = 0;
 	while (line[j])
-        j++;
+		j++;
 	s_tab->x_max = ft_strlen_split(line);
 	tab = malloc(s_tab->x_max * sizeof(int));
 	if (!tab)
-	{
 		free (line);
+	if (!tab)
 		return (NULL);
-	}
-	i = 0;
-	while (line[i])
-	{
+	i = -1;
+	while (line[++i])
 		tab[i] = ft_atoi(line[i]);
-		i++;
-	}
 	free(line);
 	return (tab);
 }
@@ -85,8 +81,8 @@ int	get_int_map(char *to_open, t_int_tab *s_tab)
 	if (!s_tab->tab)
 		return (0);
 	k = s_tab->y_max - 1;
-	i = 0;
-	while (i < s_tab->y_max)
+	i = -1;
+	while (++i < s_tab->y_max)
 	{
 		s_tab->tab[i] = get_line(fd, s_tab, k);
 		if (!s_tab->tab[i])
@@ -94,7 +90,6 @@ int	get_int_map(char *to_open, t_int_tab *s_tab)
 			ft_free_double_int(s_tab->tab, i);
 			return (0);
 		}
-		i++;
 		k--;
 	}
 	close(fd);
