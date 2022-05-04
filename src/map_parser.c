@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/25 22:01:53 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:06:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	get_line_count(char *to_open)
 	return (count - 1);
 }
 
-static int	*get_line(int fd, t_int_tab *s_tab)
+static int	*get_line(int fd, t_int_tab *s_tab, int k)
 {
 	int		*tab;
 	char	**line;
@@ -46,8 +46,8 @@ static int	*get_line(int fd, t_int_tab *s_tab)
 	int		i;
 	int		j;
 
-	res = get_next_line(fd);
-	line = trim_split(ft_split( res, ' '));
+	res = get_next_line(fd, k);
+	line = trim_split(ft_split(res, ' '));
 	free(res);
 	if (!line)
 		return (NULL);
@@ -75,6 +75,7 @@ int	get_int_map(char *to_open, t_int_tab *s_tab)
 {
 	int			fd;
 	int			i;
+	int			k;
 
 	fd = open(to_open, O_RDONLY);
 	if (fd < 0)
@@ -83,16 +84,18 @@ int	get_int_map(char *to_open, t_int_tab *s_tab)
 	s_tab->tab = malloc(s_tab->y_max * sizeof(int *));
 	if (!s_tab->tab)
 		return (0);
+	k = s_tab->y_max - 1;
 	i = 0;
 	while (i < s_tab->y_max)
 	{
-		s_tab->tab[i] = get_line(fd, s_tab);
+		s_tab->tab[i] = get_line(fd, s_tab, k);
 		if (!s_tab->tab[i])
 		{
 			ft_free_double_int(s_tab->tab, i);
 			return (0);
 		}
 		i++;
+		k--;
 	}
 	close(fd);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:54:31 by rpoder            #+#    #+#             */
-/*   Updated: 2021/12/17 17:39:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/04 16:07:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_read_line(int fd, char *reste)
 	return (reste);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int k)
 {
 	static char	*reste;
 	char		*ligne;
@@ -96,5 +96,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	ligne = ft_trim_line(reste);
 	reste = ft_trim_rest(reste);
+	if (k == 0)
+		free(reste);
 	return (ligne);
 }
