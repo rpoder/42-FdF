@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:15:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/07 00:25:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars)
 	stop.x = (i * sin(a) * vars->zoom + (j + 1) * sin(a)
 			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
 	ft_drawline(vars, start, stop);
-
 }
 
 void	draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars)
@@ -93,7 +92,6 @@ int	main(int argc, char **argv)
 	if (!s_tab)
 		return (0);
 	ret = tab_parser(argv[1], s_tab);
-	//ft_print_double_tab(s_tab);
 	if (ret == 0)
 	{
 		free (s_tab);
@@ -110,5 +108,4 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);
 	mlx_key_hook(vars->win_ptr, handle_input, vars);
 	mlx_loop(vars->mlx_ptr);
-
 }

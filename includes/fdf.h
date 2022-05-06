@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:09:59 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/07 00:26:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define ESC 65307
-
 
 typedef struct vars
 {
@@ -73,8 +72,7 @@ int			**ft_free_double_int(int **tab, int i);
 char		**ft_free_double_char(char **tab, int i);
 int			ft_strlen_split(char **tab);
 char		**trim_split(char **tab);
-void	ft_print_double_tab(t_int_tab *s_tab);
-
+void		ft_print_double_tab(t_int_tab *s_tab);
 
 int			tab_parser(char *to_open, t_int_tab *s_tab);
 int			*get_line(int fd, t_int_tab *s_tab, int k);

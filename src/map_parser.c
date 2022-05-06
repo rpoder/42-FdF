@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:15:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/07 00:26:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_line_count(char *to_open)
 	char		*buf;
 	int			ret;
 	int			fd;
-	t_last_seen last_seen;
+	t_last_seen	last_seen;
 
 	count = 1;
 	buf = malloc(sizeof(char));
@@ -42,7 +42,7 @@ int	get_line_count(char *to_open)
 	return (count);
 }
 
-int	*get_line(int fd, t_int_tab *s_tab, int	k)
+int	*get_line(int fd, t_int_tab *s_tab, int k)
 {
 	int		*tab;
 	char	*tmp;
@@ -55,7 +55,6 @@ int	*get_line(int fd, t_int_tab *s_tab, int	k)
 		return (NULL);
 	splitted = ft_split(tmp, ' ');
 	s_tab->x_max = ft_strlen_split(splitted);
-
 	tab = malloc(sizeof(int) * s_tab->x_max);
 	while (i < s_tab->x_max)
 	{
@@ -74,7 +73,8 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 	int			k;
 
 	fd = open(to_open, O_RDONLY);
-
+	if (fd <= 0)
+		return (0);
 	s_tab->y_max = get_line_count(to_open);
 	s_tab->tab = malloc(sizeof(int *) * s_tab->y_max);
 	if (!s_tab->tab)
@@ -87,5 +87,6 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 		i++;
 		k--;
 	}
+	close(fd);
 	return (1);
 }
