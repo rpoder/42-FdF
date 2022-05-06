@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:59:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 22:12:51 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/07 00:14:27 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,23 @@ int	ft_strlen_split(char **tab)
 		}
 	}
 	return (count);
+}
+
+void	ft_print_double_tab(t_int_tab *s_tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < s_tab->x_max)
+	{
+		j = 0;
+		while (j < s_tab->y_max)
+		{
+			ft_printf("%d", s_tab->tab[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 23:51:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/07 00:15:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int argc, char **argv)
 	if (!s_tab)
 		return (0);
 	ret = tab_parser(argv[1], s_tab);
+	//ft_print_double_tab(s_tab);
 	if (ret == 0)
 	{
 		free (s_tab);
@@ -110,8 +111,4 @@ int	main(int argc, char **argv)
 	mlx_key_hook(vars->win_ptr, handle_input, vars);
 	mlx_loop(vars->mlx_ptr);
 
-
-	//--------------------------------------
-	//get_line_count(argv[1]);
-	//tab_parser(argv[1]);
 }
