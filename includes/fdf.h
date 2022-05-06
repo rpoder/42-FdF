@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:53:09 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:14:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,8 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
-# define MOVE_UP 119
-# define MOVE_DOWN 115
-# define MOVE_LEFT 97
-# define MOVE_RIGHT 100
 # define ESC 65307
-# define SPC 32
-# define PLUS 65451
-# define MINUS 65453
+
 
 typedef struct vars
 {
@@ -63,6 +57,11 @@ typedef struct point {
 	int	y;
 }	t_point;
 
+typedef struct last_seen {
+	int	last;
+	int	i;
+}	t_last_seen;
+
 void		my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int			handle_no_event(void *data);
 int			handle_input(int keysym, t_vars *vars);
@@ -75,7 +74,9 @@ char		**ft_free_double_char(char **tab, int i);
 int			ft_strlen_split(char **tab);
 char		**trim_split(char **tab);
 
-int			get_int_map(char *to_open, t_int_tab *s_tab);
+int			tab_parser(char *to_open, t_int_tab *s_tab);
+int			*get_line(int fd, t_int_tab *s_tab);
+int			get_line_count(char *to_open);
 
 void		draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars);
 void		draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars);

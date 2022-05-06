@@ -6,92 +6,82 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:13:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:20:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	get_line_count(char *to_open)
+int	get_line_count(char *to_open)
 {
-	int		count;
-	int		ret;
-	char	*buf;
-	int		fd;
+	int			count;
+	char		*buf;
+	int			ret;
+	int			fd;
+	t_last_seen last_seen;
 
-	count = 0;
-	ret = 1;
-	fd = open(to_open, O_RDONLY);
-	if (fd < 0)
-		return (-1);
+	count = 1;
 	buf = malloc(sizeof(char));
 	if (!buf)
 		return (-1);
+	fd = open(to_open, O_RDONLY);
 	while (ret != 0)
 	{
 		ret = read(fd, buf, 1);
-		if (buf[0] == '\n')
+		if (*buf == 10)
+		{
 			count++;
+			last_seen.last = last_seen.i;
+		}
+		last_seen.i++;
 	}
 	free(buf);
 	close(fd);
-	return (count - 1);
+	if (last_seen.i - last_seen.last == 1)
+		count = count - 2;
+	return (count);
 }
 
-static int	*get_line(int fd, t_int_tab *s_tab, int k)
+int	*get_line(int fd, t_int_tab *s_tab)
 {
 	int		*tab;
-	char	**line;
-	char	*res;
+	char	*tmp;
+	char	**splitted;
 	int		i;
-	int		j;
 
-	res = get_next_line(fd, k);
-	line = trim_split(ft_split(res, ' '));
-	free(res);
-	if (!line)
+	i = 0;
+	tmp = get_next_line(fd, 1);
+	if (!tmp)
 		return (NULL);
-	j = 0;
-	while (line[j])
-		j++;
-	s_tab->x_max = ft_strlen_split(line);
-	tab = malloc(s_tab->x_max * sizeof(int));
-	if (!tab)
-		free (line);
-	if (!tab)
-		return (NULL);
-	i = -1;
-	while (line[++i])
-		tab[i] = ft_atoi(line[i]);
-	free(line);
+	splitted = ft_split(tmp, ' ');
+	s_tab->x_max = ft_strlen_split(splitted);
+	tab = malloc(sizeof(int) * s_tab->y_max);
+	while (i < s_tab->x_max)
+	{
+		tab[i] = ft_atoi(splitted[i]);
+		//ft_printf("|%d|\n", tab[i]);
+		i++;
+	}
+	ft_free_double_char(splitted, s_tab->y_max);
 	return (tab);
 }
 
-int	get_int_map(char *to_open, t_int_tab *s_tab)
+int	tab_parser(char *to_open, t_int_tab *s_tab)
 {
-	int			fd;
 	int			i;
-	int			k;
+	int			fd;
 
 	fd = open(to_open, O_RDONLY);
-	if (fd < 0)
-		return (0);
+
 	s_tab->y_max = get_line_count(to_open);
-	s_tab->tab = malloc(s_tab->y_max * sizeof(int *));
+	s_tab->tab = malloc(sizeof(int *) * s_tab->y_max);
 	if (!s_tab->tab)
 		return (0);
-	k = s_tab->y_max - 1;
-	i = -1;
-	while (++i < s_tab->y_max)
+	i = 0;
+	while (i < s_tab->y_max)
 	{
-		s_tab->tab[i] = get_line(fd, s_tab, k);
-		if (!s_tab->tab[i])
-		{
-			ft_free_double_int(s_tab->tab, i);
-			return (0);
-		}
-		k--;
+		s_tab->tab[i] = get_line(fd, s_tab);
+		i++;
 	}
-	close(fd);
 	return (1);
 }

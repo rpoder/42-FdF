@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:14:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:21:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars)
 	stop.x = (i * sin(a) * vars->zoom + (j + 1) * sin(a)
 			* vars->zoom - 1 * vars->zoom) + vars->x_offset;
 	ft_drawline(vars, start, stop);
+
 }
 
 void	draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars)
@@ -91,11 +92,13 @@ int	main(int argc, char **argv)
 	s_tab = set_s_tab();
 	if (!s_tab)
 		return (0);
-	ret = get_int_map(argv[1], s_tab);
+	ret = tab_parser(argv[1], s_tab);
 	if (ret == 0)
+	{
 		free (s_tab);
-	if (ret == 0)
 		return (0);
+	}
+	ft_printf("x=%d", s_tab->x_max);
 	vars = set_vars(s_tab);
 	if (!vars)
 		ft_free_double_int(s_tab->tab, s_tab->y_max);
@@ -107,4 +110,9 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);
 	mlx_key_hook(vars->win_ptr, handle_input, vars);
 	mlx_loop(vars->mlx_ptr);
+
+
+	//--------------------------------------
+	//get_line_count(argv[1]);
+	//tab_parser(argv[1]);
 }

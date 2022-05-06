@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:57:00 by rpoder            #+#    #+#             */
-/*   Updated: 2022/04/20 17:36:38 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 22:37:30 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static char	**ft_assign(char **tab, const char *str, char c, int nb_words)
 			j++;
 		}
 		tab[i][k] = '\0';
+		//ft_printf("tab[i] = %s\n", tab[i]);
 		i++;
 	}
 	tab[i] = NULL;
