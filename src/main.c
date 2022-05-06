@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 23:21:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:51:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(int argc, char **argv)
 		free (s_tab);
 		return (0);
 	}
-	ft_printf("x=%d", s_tab->x_max);
 	vars = set_vars(s_tab);
 	if (!vars)
 		ft_free_double_int(s_tab->tab, s_tab->y_max);

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 23:20:52 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:55:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	get_line_count(char *to_open)
 	return (count);
 }
 
-int	*get_line(int fd, t_int_tab *s_tab)
+int	*get_line(int fd, t_int_tab *s_tab, int	k)
 {
 	int		*tab;
 	char	*tmp;
@@ -50,18 +50,18 @@ int	*get_line(int fd, t_int_tab *s_tab)
 	int		i;
 
 	i = 0;
-	tmp = get_next_line(fd, 1);
+	tmp = get_next_line(fd, k);
 	if (!tmp)
 		return (NULL);
 	splitted = ft_split(tmp, ' ');
 	s_tab->x_max = ft_strlen_split(splitted);
-	tab = malloc(sizeof(int) * s_tab->y_max);
+	tab = malloc(sizeof(int) * s_tab->x_max);
 	while (i < s_tab->x_max)
 	{
 		tab[i] = ft_atoi(splitted[i]);
-		//ft_printf("|%d|\n", tab[i]);
 		i++;
 	}
+	free(tmp);
 	ft_free_double_char(splitted, s_tab->y_max);
 	return (tab);
 }
@@ -70,6 +70,7 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 {
 	int			i;
 	int			fd;
+	int			k;
 
 	fd = open(to_open, O_RDONLY);
 
@@ -78,10 +79,12 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 	if (!s_tab->tab)
 		return (0);
 	i = 0;
+	k = s_tab->y_max;
 	while (i < s_tab->y_max)
 	{
-		s_tab->tab[i] = get_line(fd, s_tab);
+		s_tab->tab[i] = get_line(fd, s_tab, k);
 		i++;
+		k--;
 	}
 	return (1);
 }

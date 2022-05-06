@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 23:14:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:56:38 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			ft_strlen_split(char **tab);
 char		**trim_split(char **tab);
 
 int			tab_parser(char *to_open, t_int_tab *s_tab);
-int			*get_line(int fd, t_int_tab *s_tab);
+int			*get_line(int fd, t_int_tab *s_tab, int k);
 int			get_line_count(char *to_open);
 
 void		draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars);

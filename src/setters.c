@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:54:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 17:26:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:21:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vars	*set_vars(t_int_tab *s_tab)
 	v->img_ptr = mlx_new_image(v->mlx_ptr, 1920, 1080);
 	v->addr = mlx_get_data_addr(v->img_ptr, &v->bpp, &v->line_len, &v->endian);
 	v->zoom = (WIN_WIDTH / s_tab->x_max) / 3;
-	v->height = 10;
+	v->height = 1;
 	v->x_offset = ((WIN_WIDTH - (s_tab->x_max * v->zoom)) / 2)
 		- (s_tab->x_max * v->zoom) / 3;
 	v->y_offset = WIN_HEIGHT / 2;

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:50:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/04 16:06:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/06 23:55:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-char	*get_next_line(int fd, int k);
+char	*get_next_line(int fd, int	k);
 char	*ft_trim_rest(char *to_trim);
 char	*ft_trim_line(char	*to_trim);
 char	*ft_strjoin(char *s1, char *s2);
