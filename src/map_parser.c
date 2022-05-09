@@ -6,25 +6,24 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:26:53 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/09 16:08:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_line_count(char *to_open)
+int	get_line_count(int fd)
 {
 	int			count;
 	char		*buf;
 	int			ret;
-	int			fd;
 	t_last_seen	last_seen;
 
 	count = 1;
+	ret = 1;
 	buf = malloc(sizeof(char));
 	if (!buf)
 		return (-1);
-	fd = open(to_open, O_RDONLY);
 	while (ret != 0)
 	{
 		ret = read(fd, buf, 1);
@@ -71,11 +70,15 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 	int			i;
 	int			fd;
 	int			k;
+	int			fd_get_line;
 
 	fd = open(to_open, O_RDONLY);
-	if (fd <= 0)
+	fd_get_line = open(to_open, O_RDONLY);
+	if (fd <= 0 || fd_get_line <= 0)
 		return (0);
-	s_tab->y_max = get_line_count(to_open);
+	s_tab->y_max = get_line_count(fd_get_line);
+	if (s_tab->y_max == -1)
+		return (-1);
 	s_tab->tab = malloc(sizeof(int *) * s_tab->y_max);
 	if (!s_tab->tab)
 		return (0);

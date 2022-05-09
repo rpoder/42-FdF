@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:54:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/06 23:21:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:41:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_int_tab	*set_s_tab(void)
 {
 	t_int_tab	*s_tab;
 
-	s_tab = malloc(sizeof(s_tab));
+	s_tab = malloc(sizeof(t_int_tab));
 	if (!s_tab)
 		return (NULL);
 	s_tab->tab = NULL;

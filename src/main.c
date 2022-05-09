@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:25:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:55:17 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	render_map(t_int_tab *map, t_vars *vars)
 {
 	t_info_draw	*infos;
 
-	infos = malloc(sizeof(infos));
+	infos = malloc(sizeof(t_info_draw));
 	infos->i = 0;
 	infos->j = 0;
 	infos->a = 26.565;
@@ -92,11 +92,10 @@ int	main(int argc, char **argv)
 	if (!s_tab)
 		return (0);
 	ret = tab_parser(argv[1], s_tab);
+	if (ret <= 0)
+		free(s_tab);
 	if (ret == 0)
-	{
-		free (s_tab);
 		return (0);
-	}
 	vars = set_vars(s_tab);
 	if (!vars)
 		ft_free_double_int(s_tab->tab, s_tab->y_max);
