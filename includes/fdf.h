@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/10 15:35:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:56:09 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
+# include <X11/X.h>
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
@@ -64,6 +65,7 @@ typedef struct last_seen {
 void		my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int			handle_no_event(void *data);
 int			handle_input(int keysym, t_vars *vars);
+int			global_exit(t_vars *vars);
 
 t_vars		*set_vars(t_int_tab *s_tab);
 t_int_tab	*set_s_tab(void);

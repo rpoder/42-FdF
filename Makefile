@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/10 15:19:35 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/10 16:00:55 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MLX_DIR = ./mlx_linux
 MLX = -L/usr/lib -Imlx_Linux -lXext -lX11 -lm -lz
 INC = -I$(MLX_DIR) -I ./includes -I $(LIBFT_DIR)/includes -O3 -I/usr/include
 SRCSPATH = ./src/
-MAP = 10-2.fdf
+MAP = test_maps/elem2.fdf
 SRCS = $(addprefix $(SRCSPATH), \
 	main.c \
 	mlx_tools.c \
@@ -41,10 +41,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 test: $(NAME)
-	./$(NAME) test_maps/$(MAP)
+	./$(NAME) $(MAP)
 
 leaks: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) test_maps/$(MAP)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(MAP)
 
 %.a:
 	$(MAKE) -C $(LIBFT_DIR)

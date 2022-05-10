@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/10 15:38:17 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:59:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int	*get_line(int fd, t_int_tab *s_tab, int k)
 	char	**splitted;
 	int		i;
 
-	i = 0;
 	tmp = get_next_line(fd, k);
 	if (!tmp)
 		return (NULL);
 	splitted = ft_split(tmp, ' ');
 	s_tab->x_max = ft_strlen_split(splitted);
 	tab = malloc(sizeof(int) * s_tab->x_max);
+	i = 0;
 	while (i < s_tab->x_max)
 	{
 		tab[i] = ft_atoi(splitted[i]);
