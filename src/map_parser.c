@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/10 15:35:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:38:17 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,10 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 		return (0);
 	s_tab->y_max = get_line_count(fd_get_line);
 	if (s_tab->y_max == -1)
-	{
-		return (-1);
-		close (fd);
-	}
+		return (close (fd), -1);
 	s_tab->tab = malloc(sizeof(int *) * s_tab->y_max);
 	if (!s_tab->tab)
 		return (0);
-
 	i = 0;
 	k = s_tab->y_max - 1;
 	while (i < s_tab->y_max)
@@ -111,6 +107,5 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 		i++;
 		k--;
 	}
-	close(fd);
-	return (1);
+	return (close(fd), 1);
 }
