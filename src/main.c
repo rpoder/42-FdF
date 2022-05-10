@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/09 15:55:17 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 14:56:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 	ret = tab_parser(argv[1], s_tab);
 	if (ret <= 0)
 		free(s_tab);
-	if (ret == 0)
+	if (ret <= 0)
 		return (0);
 	vars = set_vars(s_tab);
 	if (!vars)

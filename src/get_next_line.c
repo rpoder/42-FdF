@@ -6,11 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:54:31 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:27:14 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:31:05 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "fdf.h"
 
 char	*ft_trim_rest(char *to_trim)
 {

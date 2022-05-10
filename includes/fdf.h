@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/09 15:59:47 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:35:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		ft_print_double_tab(t_int_tab *s_tab);
 int			tab_parser(char *to_open, t_int_tab *s_tab);
 int			*get_line(int fd, t_int_tab *s_tab, int k);
 int			get_line_count(int fd);
+int			line_loop(int fd, char *buf, int count, t_last_seen *last_seen);
 
 void		draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars);
 void		draw_h(t_info_draw *info, t_int_tab *map, t_vars *vars);

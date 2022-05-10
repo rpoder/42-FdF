@@ -6,20 +6,20 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/09 16:06:19 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/10 15:19:35 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = exec
+NAME = fdf
 CC = cc
-#CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 LIBFT = libft.a
 LIBFT_DIR = ./libftprintf
 MLX_DIR = ./mlx_linux
 MLX = -L/usr/lib -Imlx_Linux -lXext -lX11 -lm -lz
 INC = -I$(MLX_DIR) -I ./includes -I $(LIBFT_DIR)/includes -O3 -I/usr/include
 SRCSPATH = ./src/
-MAP = 10-2
+MAP = 10-2.fdf
 SRCS = $(addprefix $(SRCSPATH), \
 	main.c \
 	mlx_tools.c \
@@ -41,10 +41,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 test: $(NAME)
-	$(NAME) && ./$(NAME) test_maps/$(MAP).fdf
+	./$(NAME) test_maps/$(MAP)
 
 leaks: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) test_maps/$(MAP).fdf
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) test_maps/$(MAP)
 
 %.a:
 	$(MAKE) -C $(LIBFT_DIR)

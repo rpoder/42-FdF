@@ -6,11 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:55:06 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/07 00:25:41 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:35:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "fdf.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {

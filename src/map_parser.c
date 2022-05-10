@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/09 16:08:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:35:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,44 @@ int	get_line_count(int fd)
 	int			count;
 	char		*buf;
 	int			ret;
-	t_last_seen	last_seen;
+	t_last_seen	*last_seen;
 
 	count = 1;
-	ret = 1;
+	last_seen = malloc(sizeof(t_last_seen));
 	buf = malloc(sizeof(char));
-	if (!buf)
+	if (!buf || !last_seen)
 		return (-1);
+	ret = read(fd, buf, 1);
+	if (ret <= 0)
+	{
+		free (buf);
+		close (fd);
+		return (-1);
+	}
+	count = line_loop(fd, buf, count, last_seen);
+	close(fd);
+	if (last_seen->i - last_seen->last == 1)
+		count = count - 2;
+	free (last_seen);
+	return (count);
+}
+
+int	line_loop(int fd, char *buf, int count, t_last_seen *last_seen)
+{
+	int	ret;
+
+	ret = 1;
 	while (ret != 0)
 	{
-		ret = read(fd, buf, 1);
 		if (*buf == 10)
 		{
 			count++;
-			last_seen.last = last_seen.i;
+			last_seen->last = last_seen->i;
 		}
-		last_seen.i++;
+		last_seen->i++;
+		ret = read(fd, buf, 1);
 	}
 	free(buf);
-	close(fd);
-	if (last_seen.i - last_seen.last == 1)
-		count = count - 2;
 	return (count);
 }
 
@@ -78,10 +95,14 @@ int	tab_parser(char *to_open, t_int_tab *s_tab)
 		return (0);
 	s_tab->y_max = get_line_count(fd_get_line);
 	if (s_tab->y_max == -1)
+	{
 		return (-1);
+		close (fd);
+	}
 	s_tab->tab = malloc(sizeof(int *) * s_tab->y_max);
 	if (!s_tab->tab)
 		return (0);
+
 	i = 0;
 	k = s_tab->y_max - 1;
 	while (i < s_tab->y_max)
