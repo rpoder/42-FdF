@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:54:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/11 17:16:19 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/11 17:24:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ t_vars	*set_vars(t_int_tab *s_tab)
 		return (NULL);
 	v->win_ptr = mlx_new_window(v->mlx_ptr, 1920, 1080, "Fer de fil");
 	if (v->win_ptr == NULL)
-	{
-		free(v->mlx_ptr);
-		free(v);
-		return (NULL);
-	}
+		return ((free(v->mlx_ptr), free(v)), NULL);
 	v->img_ptr = mlx_new_image(v->mlx_ptr, 1920, 1080);
 	v->addr = mlx_get_data_addr(v->img_ptr, &v->bpp, &v->line_len, &v->endian);
 	v->zoom = (WIN_WIDTH / s_tab->x_max) / 3;

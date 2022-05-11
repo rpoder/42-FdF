@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/11 17:22:19 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/11 17:24:57 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ fclean				:	clean
 
 re					:	fclean $(NAME)
 
-norminette			:
+norm				:
 	norminette ./libftprintf ./src ./includes
 
 push				:
