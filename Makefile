@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/11 17:26:43 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/11 17:41:23 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ push				:
 	git commit -m "$m"
 	git push github master
 
-MAP 				:= test_maps/julia.fdf
+MAP 				:= test_maps/10-2.fdf
 test				: $(NAME)
 	./$(NAME) $(MAP)
 
