@@ -6,71 +6,77 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/10 16:00:55 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/11 17:15:32 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
-CC = cc
-CFLAGS = -Werror -Wall -Wextra
-LIBFT = libft.a
-LIBFT_DIR = ./libftprintf
-MLX_DIR = ./mlx_linux
-MLX = -L/usr/lib -Imlx_Linux -lXext -lX11 -lm -lz
-INC = -I$(MLX_DIR) -I ./includes -I $(LIBFT_DIR)/includes -O3 -I/usr/include
-SRCSPATH = ./src/
-MAP = test_maps/elem2.fdf
-SRCS = $(addprefix $(SRCSPATH), \
-	main.c \
-	mlx_tools.c \
-	map_parser.c \
-	setters.c \
-	libft_addons.c \
-	get_next_line.c \
-	get_next_line_utils.c \
-	ft_bresenham_1demi.c \
-	ft_bresenham_2demi.c \
-	ft_bresenham_parser.c \
-	)
+PROGNAME			:=	fdf
 
-OBJS = $(SRCS:.c=.o)
+LIBFT				:=	./libftprintf/libft.a
+MLX					:=	./mlx_linux/libmlx_Linux.a
 
-%.o: %.c
-	$(CC) $< $(INC) $(CFLAGS) -c -o $@
+INCLUDEDIR			:=	./includes
+SRCDIR				:=	./src
 
-all: $(NAME)
+MLXFLAGS			:=	-L/usr/lib -lXext -lX11 -lm -lz
 
-test: $(NAME)
-	./$(NAME) $(MAP)
+OBJDIR				:=	./obj
 
-leaks: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(MAP)
+SRCS				:=	main.c \
+						mlx_tools.c \
+						map_parser.c \
+						setters.c \
+						libft_addons.c \
+						get_next_line.c \
+						get_next_line_utils.c \
+						ft_bresenham_1demi.c \
+						ft_bresenham_2demi.c \
+						ft_bresenham_parser.c \
 
-%.a:
-	$(MAKE) -C $(LIBFT_DIR)
-	$(MAKE) -C $(MLX_DIR)
+CC					:=	cc
+RM					:=	rm
 
-$(NAME): $(OBJS) $(addprefix $(LIBFTDIR),$(LIBFT))
-	$(CC) $(OBJS) $(CFLAGS) -lft -L$(LIBFT_DIR) -lmlx -L$(MLX_DIR) $(MLX) $(INC) -o $(NAME)
+CCFLAGS				:=	-Wall -Wextra -Werror
 
-push:
-	make fclean
-	git add *
-	git status
-	git commit -m "$m"
-	git push origin master
+NAME				:=	$(PROGNAME)
 
-norminette:
+OUTDIR				:=	$(OBJDIR)
+
+$(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CCFLAGS) -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(MLX))) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
+
+$(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT)
+	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(MLXFLAGS) $(LIBFT) $(MLX) -o $(NAME)
+
+all					:	$(NAME)
+
+bonus				:	$(NAME)
+
+ifdef LIBFT
+$(LIBFT)			:
+	$(MAKE) -C $(dir $(LIBFT)) $(notdir $(LIBFT))
+endif
+
+$(OUTDIR)			:
+	mkdir $(OUTDIR)
+
+clean				:
+ifdef LIBFT
+	$(MAKE) -C $(dir $(LIBFT)) fclean
+endif
+	$(RM) -rf $(OBJDIR) $(DEBUGDIR)
+
+fclean				:	clean
+	$(RM) -f $(PROGNAME) $(DEBUGNAME)
+
+re					:	fclean $(NAME)
+
+norminette			:
 	norminette ./libftprintf ./src ./includes
 
-clean:
-	rm -rf $(SRCSPATH)*.o
-	make clean -C $(LIBFT_DIR)
+MAP 				:= test_maps/10-2.fdf
+test				: $(NAME)
+	./$(NAME) $(MAP)
 
-fclean: clean
-	rm -rf $(NAME)
-	make fclean -C $(LIBFT_DIR)
-
-re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY				:	all clean fclean re norminette

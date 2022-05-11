@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 14:54:31 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/10 15:31:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:54:34 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ char	*ft_trim_line(char	*to_trim)
 		len++;
 	if (to_trim[len] == '\n')
 		len++;
-	tmp = (char *)malloc((len + 1) * sizeof(char));
+	tmp = malloc((len + 1) * sizeof(char));
+	if (!tmp)
+		return (NULL);
 	while (i < len)
 	{
 		tmp[i] = to_trim[i];
@@ -69,6 +71,8 @@ char	*ft_read_line(int fd, char *reste)
 
 	ret = 1;
 	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
+		return (NULL);
 	while (!ft_strchr(reste, '\n') && ret != 0)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);

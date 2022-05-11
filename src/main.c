@@ -6,17 +6,19 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/10 15:57:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:57:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	render_map(t_int_tab *map, t_vars *vars)
+int	render_map(t_int_tab *map, t_vars *vars)
 {
 	t_info_draw	*infos;
 
 	infos = malloc(sizeof(t_info_draw));
+	if (!infos)
+		return (-1);
 	infos->i = 0;
 	infos->j = 0;
 	infos->a = 26.565;
@@ -34,6 +36,7 @@ void	render_map(t_int_tab *map, t_vars *vars)
 		infos->i++;
 	}
 	free(infos);
+	return (1);
 }
 
 void	draw_v(t_info_draw *info, t_int_tab *map, t_vars *vars)
@@ -97,7 +100,8 @@ int	main(int argc, char **argv)
 	vars = set_vars(s_tab);
 	if (!vars)
 		return (ft_free_double_int(s_tab->tab, s_tab->y_max), 0);
-	render_map(s_tab, vars);
+	if (render_map(s_tab, vars) < -1)
+		return (ft_free_double_int(s_tab->tab, s_tab->y_max), 0);
 	ft_free_double_int(s_tab->tab, s_tab->y_max);
 	free(s_tab);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img_ptr, 0, 0);

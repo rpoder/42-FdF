@@ -6,14 +6,14 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 23:02:14 by rpoder            #+#    #+#              #
-#    Updated: 2022/02/13 19:56:20 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/11 16:13:49 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-INC = -I includes
+INC = -I ./
 SRCDIR = ./src/
 
 SRCS =	$(addprefix $(SRCDIR), \
