@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:53:12 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/11 17:15:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/11 17:38:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ int	get_line_count(int fd)
 
 	count = 1;
 	last_seen = malloc(sizeof(t_last_seen));
-	buf = malloc(sizeof(char));
-	if (!buf || !last_seen)
+	if (!last_seen)
 		return (-1);
+	last_seen->i = 0;
+	buf = malloc(sizeof(char));
+	if (!buf)
+		return (free(last_seen), -1);
 	ret = read(fd, buf, 1);
 	if (ret <= 0)
-	{
-		free (buf);
-		close (fd);
-		return (-1);
-	}
+		return ((free(buf), free(last_seen), close(fd)), -1);
 	count = line_loop(fd, buf, count, last_seen);
 	close(fd);
 	if (last_seen->i - last_seen->last == 1)
