@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/11 17:15:32 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/11 17:22:19 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,13 @@ re					:	fclean $(NAME)
 
 norminette			:
 	norminette ./libftprintf ./src ./includes
+
+push				:
+	$(MAKE) fclean
+	git add *
+	git status
+	git commit -m "$m"
+	git push github master
 
 MAP 				:= test_maps/10-2.fdf
 test				: $(NAME)
