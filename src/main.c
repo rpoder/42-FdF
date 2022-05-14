@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:13:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/11 16:57:39 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:01:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	main(int argc, char **argv)
 	s_tab = set_s_tab();
 	if (!s_tab)
 		return (0);
+	if (!ft_strrstrchr(argv[1], ".fdf"))
+		return (free(s_tab), 0);
 	ret = tab_parser(argv[1], s_tab);
 	if (ret <= 0)
 		return (free(s_tab), 0);

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:43:24 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/11 17:16:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:59:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_int_tab	*set_s_tab(void);
 int			**ft_free_double_int(int **tab, int i);
 char		**ft_free_double_char(char **tab, int i);
 int			ft_strlen_split(char **tab);
+int			ft_strrstrchr(char *str, char *set);
 
 int			tab_parser(char *to_open, t_int_tab *s_tab);
 int			*get_line(int fd, t_int_tab *s_tab, int k);

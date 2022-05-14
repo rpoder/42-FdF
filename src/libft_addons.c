@@ -6,11 +6,31 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:59:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/05/11 17:25:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:00:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	ft_strrstrchr(char *str, char *set)
+{
+	size_t	i;
+	size_t	j;
+	size_t	set_len;
+
+	i = ft_strlen(str);
+	set_len = ft_strlen(set);
+	j = 0;
+	while (i > 0 && j < set_len)
+	{
+		if (str[i] != set[set_len])
+			return (0);
+		j++;
+		set_len--;
+		i--;
+	}
+	return (1);
+}
 
 int	**ft_free_double_int(int **tab, int i)
 {

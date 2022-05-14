@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/05/11 17:41:23 by rpoder           ###   ########.fr        #
+#    Updated: 2022/05/14 17:13:38 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ $(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CCFLAGS) -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(MLX))) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
 
-$(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT)
+$(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) $(MLX)
 	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(MLXFLAGS) $(LIBFT) $(MLX) -o $(NAME)
 
 all					:	$(NAME)
@@ -55,7 +55,12 @@ bonus				:	$(NAME)
 
 ifdef LIBFT
 $(LIBFT)			:
-	$(MAKE) -C $(dir $(LIBFT)) $(notdir $(LIBFT))
+	$(MAKE) -C $(dir $(LIBFT)) all
+endif
+
+ifdef MLX
+$(MLX)			:
+	$(MAKE) -C $(dir $(MLX)) all
 endif
 
 $(OUTDIR)			:
@@ -64,6 +69,9 @@ $(OUTDIR)			:
 clean				:
 ifdef LIBFT
 	$(MAKE) -C $(dir $(LIBFT)) fclean
+endif
+ifdef MLX
+	$(MAKE) -C $(dir $(MLX)) clean
 endif
 	$(RM) -rf $(OBJDIR) $(DEBUGDIR)
 
@@ -86,4 +94,4 @@ MAP 				:= test_maps/10-2.fdf
 test				: $(NAME)
 	./$(NAME) $(MAP)
 
-.PHONY				:	all clean fclean re norminette
+.PHONY				:	all clean fclean re norm test push
